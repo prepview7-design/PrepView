@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepView - Interview Preparation Platform</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (Browser Script) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Dynamic Ambient Background -->
+    <div class="ambient-background">
+        <div class="orb orb-primary"></div>
+        <div class="orb orb-secondary"></div>
+        <div class="orb orb-tertiary"></div>
+    </div>
+
+    <div class="app-wrapper">
+        <!-- Navigation Header -->
+        <header class="navbar">
+            <div class="logo-container">
+                <i data-lucide="brain-circuit" class="logo-icon"></i>
+                <h1 class="logo-text">PrepView</h1>
+            </div>
+            <div class="progress-tracker" id="progress-tracker">
+                <div class="step step-1 active" data-step="1">Setup</div>
+                <div class="step-divider"></div>
+                <div class="step step-2" data-step="2">Aptitude</div>
+                <div class="step-divider"></div>
+                <div class="step step-3" data-step="3">Coding</div>
+                <div class="step-divider"></div>
+                <div class="step step-4" data-step="4">Technical</div>
+                <div class="step-divider"></div>
+                <div class="step step-5" data-step="5">HR</div>
+                <div class="step-divider"></div>
+                <div class="step step-6" data-step="6">Results</div>
+            </div>
+            <div class="user-status">
+                <div class="pulse-indicator"></div>
+                <span>System Online</span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="view-container">
+            
+            <!-- VIEW 1: Upload / Setup -->
+            <section id="view-setup" class="view active animation-slide-up">
+                <div class="glass-card setup-card">
+                    <div class="setup-header">
+                        <h2>Start Your Preparation</h2>
+                        <p>Upload your CV and let our AI tailor the perfect interview flow.</p>
+                    </div>
+                    
+                    <div class="upload-zone" id="upload-zone">
+                        <i data-lucide="cloud-upload" class="upload-icon"></i>
+                        <h3>Drag & Drop your CV here</h3>
+                        <p class="file-support">Supports PDF, DOCX (Max 5MB)</p>
+                        <button class="btn btn-outline">Browse Files</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Target Company</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="building-2"></i>
+                            <input type="text" id="company" placeholder="e.g. Google, Microsoft, Amazon" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="role">Target Role</label>
+                        <div class="input-wrapper">
+                            <i data-lucide="briefcase"></i>
+                            <input type="text" id="role" placeholder="e.g. Software Engineer, Product Manager" />
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-glow start-btn" onclick="app.transitionTo('view-aptitude')">
+                        Begin Aptitude Round
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- VIEW 2: Aptitude Round -->
+            <section id="view-aptitude" class="view hidden">
+                <div class="round-header">
+                    <h2>Aptitude Assessment</h2>
+                    <div class="timer">
+                        <i data-lucide="timer"></i>
+                        <span id="apti-timer">15:00</span>
+                    </div>
+                </div>
+                
+                <div class="glass-card quiz-card">
+                    <div class="quiz-progress">Question 1 of 10</div>
+                    <div class="question-text">
+                        A train running at the speed of 60 km/hr crosses a pole in 9 seconds. What is the length of the train?
+                    </div>
+                    
+                    <div class="options-grid">
+                        <button class="option-btn"><span>A</span> 120 metres</button>
+                        <button class="option-btn"><span>B</span> 180 metres</button>
+                        <button class="option-btn"><span>C</span> 324 metres</button>
+                        <button class="option-btn"><span>D</span> 150 metres</button>
+                    </div>
+
+                    <div class="quiz-footer">
+                        <button class="btn btn-secondary" onclick="app.transitionTo('view-setup')">Back</button>
+                        <button class="btn btn-primary" onclick="app.transitionTo('view-coding')">Submit & Continue <i data-lucide="chevron-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 3: Coding Round -->
+            <section id="view-coding" class="view hidden">
+                <div class="coding-layout">
+                    <!-- Left: Problem Description -->
+                    <div class="glass-card problem-card">
+                        <div class="problem-header">
+                            <h3>Problem: Two Sum</h3>
+                            <span class="badge badge-easy">Easy</span>
+                        </div>
+                        <div class="problem-body">
+                            <p>Given an array of integers <code>nums</code> and an integer <code>target</code>, return indices of the two numbers such that they add up to <code>target</code>.</p>
+                            <p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
+                            <div class="example-box">
+                                <strong>Example 1:</strong>
+                                <br/>Input: nums = [2,7,11,15], target = 9
+                                <br/>Output: [0,1]
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Editor -->
+                    <div class="glass-card editor-card">
+                        <div class="editor-header">
+                            <div class="lang-select">
+                                <i data-lucide="code-2"></i> Python 3
+                            </div>
+                            <div class="window-controls">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                        </div>
+                        <div class="editor-body">
+                            <div class="line-numbers">
+                                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                            </div>
+                            <textarea class="code-textarea" spellcheck="false" placeholder="def twoSum(nums, target):&#10;    # Write your code here&#10;    pass"></textarea>
+                        </div>
+                        <div class="editor-footer">
+                            <button class="btn btn-secondary btn-sm" onclick="app.transitionTo('view-aptitude')">Back</button>
+                            <button class="btn btn-outline btn-sm"><i data-lucide="play"></i> Run Code</button>
+                            <button class="btn btn-primary btn-sm btn-glow" onclick="app.transitionTo('view-technical')">Submit Solution <i data-lucide="chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 4: Technical Round -->
+            <section id="view-technical" class="view hidden">
+                <div class="interview-layout">
+                    <!-- Video Area -->
+                    <div class="glass-card video-card">
+                        <div class="video-placeholder ai-stream">
+                            <div class="ai-avatar pulse">
+                                <i data-lucide="bot" size="48"></i>
+                            </div>
+                            <div class="video-overlay">
+                                <span class="badge badge-active"><span class="dot-live"></span> Live AI Agent</span>
+                            </div>
+                            <!-- Audio wave visualization -->
+                            <div class="audio-waves">
+                                <div class="wave w1"></div>
+                                <div class="wave w2"></div>
+                                <div class="wave w3"></div>
+                                <div class="wave w4"></div>
+                                <div class="wave w5"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- User weak video -->
+                        <div class="video-placeholder user-stream">
+                            <i data-lucide="user" size="32"></i>
+                            <div class="mic-status on"><i data-lucide="mic"></i></div>
+                        </div>
+
+                        <div class="stream-controls">
+                            <button class="control-btn accent"><i data-lucide="mic-off"></i></button>
+                            <button class="control-btn accent"><i data-lucide="video-off"></i></button>
+                            <button class="control-btn danger" onclick="app.transitionTo('view-hr')"><i data-lucide="phone-off"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Transcription & Chat Area -->
+                    <div class="glass-card transcript-card">
+                        <div class="transcript-header">
+                            <i data-lucide="message-square-text"></i> Live Transcript
+                        </div>
+                        <div class="chat-area">
+                            <div class="chat-bubble ai-msg">
+                                <strong>TechAI:</strong> Hello! Let's discuss your solution to the Two Sum problem. What is the time complexity of the approach you implemented?
+                            </div>
+                            <div class="chat-bubble user-msg typing">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" placeholder="(Voice mode active) Or type here..." disabled />
+                            <button class="btn btn-icon disabled"><i data-lucide="send"></i></button>
+                        </div>
+                        <button class="btn btn-primary full-width mt-4" onclick="app.transitionTo('view-hr')">Proceed to HR Round <i data-lucide="arrow-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 5: HR Round -->
+            <section id="view-hr" class="view hidden">
+                <div class="interview-layout">
+                    <!-- Video Area -->
+                    <div class="glass-card video-card hr-theme">
+                        <div class="video-placeholder ai-stream">
+                            <div class="ai-avatar hr-pulse">
+                                <i data-lucide="users" size="48"></i>
+                            </div>
+                            <div class="video-overlay">
+                                <span class="badge badge-active"><span class="dot-live"></span> Live HR Agent</span>
+                            </div>
+                             <div class="audio-waves">
+                                <div class="wave w1 hr-wave"></div>
+                                <div class="wave w2 hr-wave"></div>
+                                <div class="wave w3 hr-wave"></div>
+                                <div class="wave w4 hr-wave"></div>
+                                <div class="wave w5 hr-wave"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- User weak video -->
+                        <div class="video-placeholder user-stream">
+                            <i data-lucide="user" size="32"></i>
+                            <div class="mic-status on"><i data-lucide="mic"></i></div>
+                        </div>
+
+                        <div class="stream-controls">
+                            <button class="control-btn accent"><i data-lucide="mic-off"></i></button>
+                            <button class="control-btn accent"><i data-lucide="video-off"></i></button>
+                            <button class="control-btn danger" onclick="app.transitionTo('view-dashboard')"><i data-lucide="phone-off"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Transcription & Chat Area -->
+                    <div class="glass-card transcript-card">
+                        <div class="transcript-header">
+                            <i data-lucide="heart-handshake"></i> Behavioral Assessment
+                        </div>
+                        <div class="chat-area">
+                            <div class="chat-bubble ai-msg hp-msg">
+                                <strong>HRAI:</strong> Welcome to the HR round. Can you tell me about a time you had a conflict with a team member and how you resolved it?
+                            </div>
+                            <div class="chat-bubble user-msg typing">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                         <button class="btn btn-primary btn-glow full-width mt-4" style="margin-top:auto" onclick="app.transitionTo('view-dashboard')">Finish Interview & View Results <i data-lucide="sparkles"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 6: Dashboard -->
+            <section id="view-dashboard" class="view hidden">
+                <div class="dashboard-header text-center">
+                    <h2 class="gradient-text">Preparation Complete!</h2>
+                    <p>Here is your comprehensive performance analysis for the targeted role.</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Score Card -->
+                    <div class="glass-card score-card text-center">
+                        <h3>Overall Readiness</h3>
+                        <div class="circular-score">
+                            <svg viewBox="0 0 36 36" class="circular-chart blue">
+                                <path class="circle-bg"
+                                  d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                />
+                                <path class="circle"
+                                  stroke-dasharray="82, 100"
+                                  d="M18 2.0845
+                                    a 15.9155 15.9155 0 0 1 0 31.831
+                                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                                />
+                                <text x="18" y="20.35" class="percentage">82%</text>
+                            </svg>
+                        </div>
+                        <p class="status-excellent"><i data-lucide="trending-up"></i> Highly Recommended for Interview</p>
+                    </div>
+
+                    <!-- Stats Breakdown -->
+                    <div class="glass-card breakdown-card">
+                        <h3>Round Analysis</h3>
+                        
+                        <div class="stat-row">
+                            <div class="stat-info">
+                                <span><i data-lucide="brain"></i> Aptitude</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar"><div class="fill fill-excellent" style="width: 90%;"></div></div>
+                        </div>
+
+                        <div class="stat-row">
+                            <div class="stat-info">
+                                <span><i data-lucide="code"></i> Coding</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar"><div class="fill fill-good" style="width: 75%;"></div></div>
+                        </div>
+
+                        <div class="stat-row">
+                            <div class="stat-info">
+                                <span><i data-lucide="cpu"></i> Technical</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="progress-bar"><div class="fill fill-excellent" style="width: 85%;"></div></div>
+                        </div>
+
+                        <div class="stat-row">
+                            <div class="stat-info">
+                                <span><i data-lucide="users"></i> HR/Behavioral</span>
+                                <span>78%</span>
+                            </div>
+                            <div class="progress-bar"><div class="fill fill-good" style="width: 78%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback list -->
+                     <div class="glass-card feedback-card full-span">
+                        <h3>Detailed Feedback & Areas to Improve</h3>
+                        <ul class="feedback-list">
+                            <li>
+                                <div class="feedback-icon pro"><i data-lucide="check-circle-2"></i></div>
+                                <div class="feedback-text">
+                                    <strong>Strong Problem Solving</strong>
+                                    <p>Your approach to the Two Sum problem was optimally mapped with an O(n) time complexity hash-map solution.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feedback-icon con"><i data-lucide="alert-circle"></i></div>
+                                <div class="feedback-text">
+                                    <strong>Communication Delivery</strong>
+                                    <p>During the HR round, specific examples using the STAR method could be improved for better clarity.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-outline" onclick="app.transitionTo('view-setup')"><i data-lucide="rotate-ccw"></i> Try Again</button>
+                            <button class="btn btn-primary btn-glow">Download Report PDF <i data-lucide="download"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Initialize App Script -->
+    <script src="app.js"></script>
+</body>
+</html>
