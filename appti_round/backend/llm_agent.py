@@ -8,12 +8,11 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
-from langgraph.graph import StateGraph, END
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 
 import sys
-
+import random
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
@@ -21,6 +20,7 @@ if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
 from backend.models import QuestionModel, QuestionOption, EvaluationResponse, QuestionResult
+from backend.database import SessionLocal, QuestionDB
 
 load_dotenv()
 
@@ -34,101 +34,57 @@ elif os.getenv("OPENAI_API_KEY"):
 else:
     raise ValueError("Please set GROQ_API_KEY, GOOGLE_API_KEY, or OPENAI_API_KEY in the .env file")
 
-class QuestionGenerationOutput(BaseModel):
-    questions: List[Dict[str, Any]] = Field(description="List of questions with category, question text, and options (A, B, C, D)")
 
-question_parser = JsonOutputParser(pydantic_object=QuestionGenerationOutput)
-
-
-class GenerationState(TypedDict):
-    difficulty: str
-    logical_questions: List[Dict]
-    numerical_questions: List[Dict]
-    error: str
-
-
-async def generate_logical(state: GenerationState):
-    prompt = PromptTemplate(
-        template="Generate 15 {difficulty} difficulty Logical Reasoning questions for an aptitude test.\n{format_instructions}\nEnsure each question has exactly 4 options labeled A, B, C, D.",
-        input_variables=["difficulty"],
-        partial_variables={"format_instructions": question_parser.get_format_instructions()}
-    )
-    chain = prompt | llm | question_parser
+async def generate_test(company: str, difficulty: str) -> List[QuestionModel]:
+    """
+    Fetches company-specific questions from the SQLite database instead of generating them on the fly.
+    """
+    db = SessionLocal()
     try:
-        res = await chain.ainvoke({"difficulty": state["difficulty"]})
+        # Fetch all matching questions from the DB
+        query = db.query(QuestionDB)
+        if company != "Generic":
+            query = query.filter(QuestionDB.company == company)
+            
+        # Optional: filter by difficulty if we have enough questions
+        # query = query.filter(QuestionDB.difficulty == difficulty)
         
-        for q in res['questions']:
-            q['category'] = "Logical Reasoning"
-        return {"logical_questions": res['questions']}
-    except Exception as e:
-        return {"error": str(e)}
-
-async def generate_numerical(state: GenerationState):
-    prompt = PromptTemplate(
-        template="Generate 15 {difficulty} difficulty Numerical Ability questions for an aptitude test.\n{format_instructions}\nEnsure each question has exactly 4 options labeled A, B, C, D.",
-        input_variables=["difficulty"],
-        partial_variables={"format_instructions": question_parser.get_format_instructions()}
-    )
-    chain = prompt | llm | question_parser
-    try:
-        res = await chain.ainvoke({"difficulty": state["difficulty"]})
-        for q in res['questions']:
-            q['category'] = "Numerical Ability"
-        return {"numerical_questions": res['questions']}
-    except Exception as e:
-        return {"error": str(e)}
-
-def build_generation_graph():
-    workflow = StateGraph(GenerationState)
-    workflow.add_node("generate_logical", generate_logical)
-    workflow.add_node("generate_numerical", generate_numerical)
-    
-    workflow.set_entry_point("generate_logical")
-    workflow.add_edge("generate_logical", "generate_numerical")
-    workflow.add_edge("generate_numerical", END)
-    
-    return workflow.compile()
-
-async def generate_test(difficulty: str) -> List[QuestionModel]:
-    graph = build_generation_graph()
-    initial_state = GenerationState(difficulty=difficulty, logical_questions=[], numerical_questions=[], error="")
-    result = await graph.ainvoke(initial_state)
-    
-    if result.get("error"):
-        raise Exception(f"Failed to generate test: {result['error']}")
+        all_db_questions = query.all()
+        selected_questions = all_db_questions.copy()
         
-    all_raw_questions = result["logical_questions"] + result["numerical_questions"]
-    
-    formatted_questions = []
-    for i, q in enumerate(all_raw_questions):
-        options = []
-        if 'options' in q:
-            if isinstance(q['options'], dict):
-                 for k, v in q['options'].items():
-                     options.append(QuestionOption(key=k, value=str(v)))
-            elif isinstance(q['options'], list):
-                 keys = ['A', 'B', 'C', 'D']
-                 for j, opt in enumerate(q['options']):
-                     if isinstance(opt, dict) and 'key' in opt and 'value' in opt:
-                         options.append(QuestionOption(key=opt['key'], value=str(opt['value'])))
-                     else:
-                         options.append(QuestionOption(key=keys[j] if j < 4 else str(j), value=str(opt)))
-                         
-       
-        while len(options) < 4:
-             keys = ['A', 'B', 'C', 'D']
-             options.append(QuestionOption(key=keys[len(options)], value="Option"))
-             
-        formatted_questions.append(
-            QuestionModel(
-                id=i + 1,
-                category=q.get("category", "General"),
-                question=q.get("question", "Missing question text"),
-                options=options[:4]
+        # We need exactly 60 questions. If we don't have enough for this company, pad with Generic.
+        if len(selected_questions) < 60 and company != "Generic":
+            generic_questions = db.query(QuestionDB).filter(QuestionDB.company == "Generic").all()
+            selected_questions.extend(generic_questions)
+            
+        # If STILL less than 60, duplicate randomly until 60 so the test doesn't crash or run short
+        if not selected_questions:
+            raise Exception(f"No questions found at all! Please run the scraper or seed_db.py first.")
+            
+        while len(selected_questions) < 60:
+            selected_questions.append(random.choice(selected_questions))
+            
+        # Shuffle and pick exactly 60 questions
+        random.shuffle(selected_questions)
+        selected_questions = selected_questions[:60]
+        
+        formatted_questions = []
+        for i, q in enumerate(selected_questions):
+            options_data = json.loads(q.options_json)
+            options = [QuestionOption(key=opt['key'], value=opt['value']) for opt in options_data]
+            
+            formatted_questions.append(
+                QuestionModel(
+                    id=i + 1,
+                    category=q.category,
+                    question=q.question_text,
+                    options=options
+                )
             )
-        )
-        
-    return formatted_questions
+            
+        return formatted_questions
+    finally:
+        db.close()
 
 
 
@@ -157,31 +113,65 @@ Evaluate the user's answers. Provide the correct option (A, B, C, or D) for each
     
     chain = prompt | llm | eval_parser
     
-    questions_data = [{"id": q.id, "question": q.question, "options": [{"key": o.key, "value": o.value} for o in q.options]} for q in questions]
+    # We must chunk the questions because 60 questions will exceed the LLM's output token limit
+    # and cause the JSON parser to crash from truncated JSON.
+    chunk_size = 15
+    tasks = []
     
-    res = await chain.ainvoke({
-        "difficulty": difficulty,
-        "questions": json.dumps(questions_data, indent=2),
-        "answers": json.dumps(answers, indent=2)
-    })
-    
-    results = []
-    total_score = 0
-    for r in res['results']:
-        is_correct = bool(r.get('is_correct', False))
-        if is_correct:
-            total_score += 1
-            
-        results.append(QuestionResult(
-            question_id=int(r['question_id']),
-            is_correct=is_correct,
-            correct_option=str(r.get('correct_option', '')),
-            explanation=str(r.get('explanation', ''))
-        ))
+    for i in range(0, len(questions), chunk_size):
+        q_chunk = questions[i:i+chunk_size]
+        a_chunk = [ans for ans in answers if any(ans['question_id'] == q.id for q in q_chunk)]
         
-    return EvaluationResponse(
-        total_score=total_score,
-        max_score=len(questions),
-        results=results,
-        summary=res.get('summary', 'Evaluation completed.')
-    )
+        q_data = [{"id": q.id, "question": q.question, "options": [{"key": o.key, "value": o.value} for o in q.options]} for q in q_chunk]
+        
+        tasks.append(chain.ainvoke({
+            "difficulty": difficulty,
+            "questions": json.dumps(q_data, indent=2),
+            "answers": json.dumps(a_chunk, indent=2)
+        }))
+        
+    try:
+        chunk_results = await asyncio.gather(*tasks)
+        
+        # Combine the results
+        all_results = []
+        combined_summary = ""
+        for res in chunk_results:
+            all_results.extend(res.get("results", []))
+            combined_summary += res.get("summary", "") + " "
+            
+        total_score = sum(1 for r in all_results if r.get("is_correct"))
+        
+        # Final summary pass: combine the multiple chunk summaries into one clean summary
+        summary_prompt = PromptTemplate(
+            template="Summarize the following partial performance reviews into a single, cohesive, short 3-sentence performance summary for an aptitude test user. Write directly to the user.\n\nReviews:\n{reviews}",
+            input_variables=["reviews"]
+        )
+        summary_chain = summary_prompt | llm
+        final_summary = await summary_chain.ainvoke({"reviews": combined_summary})
+        
+        final_eval = []
+        for r in all_results:
+            final_eval.append(QuestionResult(
+                question_id=int(r.get("question_id", 0)),
+                is_correct=bool(r.get("is_correct", False)),
+                correct_option=str(r.get("correct_option", "A")),
+                explanation=str(r.get("explanation", "No explanation provided."))
+            ))
+            
+        return EvaluationResponse(
+            total_score=total_score,
+            max_score=len(questions),
+            results=final_eval,
+            summary=final_summary.content if hasattr(final_summary, "content") else str(final_summary)
+        )
+        
+    except Exception as e:
+        print(f"Evaluation Error: {e}")
+        # Fallback if evaluation fails, return dummy evaluation so UI doesn't crash
+        return EvaluationResponse(
+            total_score=0,
+            max_score=len(questions),
+            results=[],
+            summary="Evaluation failed due to LLM context limits or rate limits. Please try a shorter test."
+        )

@@ -27,7 +27,7 @@ app.add_middleware(
 @app.post("/api/generate-test", response_model=TestResponse)
 async def api_generate_test(request: TestRequest):
     try:
-        questions = await generate_test(request.difficulty)
+        questions = await generate_test(request.company, request.difficulty)
         return TestResponse(questions=questions)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

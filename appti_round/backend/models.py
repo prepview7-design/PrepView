@@ -3,6 +3,7 @@ from typing import List, Optional
 
 class TestRequest(BaseModel):
     difficulty: str  
+    company: str = "Generic"
 
 class QuestionOption(BaseModel):
     key: str  

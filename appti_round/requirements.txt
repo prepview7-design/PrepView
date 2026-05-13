@@ -9,3 +9,7 @@ langgraph==0.0.30
 pydantic==2.4.2
 python-dotenv==1.0.0
 requests==2.31.0
+beautifulsoup4==4.12.3
+sentence-transformers==2.7.0
+sqlalchemy==2.0.30
+scikit-learn==1.4.2

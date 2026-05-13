@@ -6,7 +6,7 @@ import time
 import streamlit.components.v1 as components
 
 # Configuration
-API_BASE_URL = "http://localhost:8001/api"
+API_BASE_URL = "http://localhost:8000/api"
 TEST_DURATION_MINUTES = 60
 
 st.set_page_config(page_title="Aptitude Test", page_icon="⏱️", layout="wide")
@@ -27,18 +27,26 @@ def initialize_session():
 
 initialize_session()
 
-def start_test(difficulty):
-    with st.spinner(f"Generating 50 {difficulty} questions... This may take a minute or two."):
+def start_test(company, difficulty):
+    with st.spinner(f"Fetching questions for {company}..."):
         try:
-            response = requests.post(f"{API_BASE_URL}/generate-test", json={"difficulty": difficulty}, timeout=120)
+            response = requests.post(f"{API_BASE_URL}/generate-test", json={"company": company, "difficulty": difficulty}, timeout=120)
             response.raise_for_status()
             data = response.json()
             st.session_state.questions = data.get("questions", [])
             st.session_state.test_started = True
             st.session_state.end_time = datetime.now() + timedelta(minutes=TEST_DURATION_MINUTES)
             st.session_state.answers = {q["id"]: None for q in st.session_state.questions}
+            return True
         except requests.exceptions.RequestException as e:
-            st.error(f"Error starting test: {e}")
+            st.error(f"Backend Connection Error: {e}")
+            st.warning("Please make sure your FastAPI backend is running! (uvicorn backend.main:app --port 8001)")
+            return False
+        except Exception as e:
+            st.error(f"Unexpected Error: {e}")
+            return False
+
+# ... (submit_test omitted for brevity, keeping original lines intact below it)
 
 def submit_test():
     st.session_state.submitted = True
@@ -66,18 +74,24 @@ def submit_test():
 
 # --- UI ---
 
-st.title("🧠 AI Aptitude Test")
+st.title("🧠 AI Aptitude Test (Company Specific)")
 
 if not st.session_state.test_started:
-    st.write("Welcome to the AI-generated Aptitude Test. You will have 60 minutes to complete 50 questions.")
-    st.write("The test consists of Logical Reasoning and Numerical Ability questions.")
+    st.write("Welcome to the AI-generated Aptitude Test. You will have 60 minutes to complete 60 questions.")
+    st.write("Select a target company to get Previous Year Questions (PYQs).")
     
-    difficulty = st.selectbox("Select Difficulty:", ["Easy", "Medium", "Hard"])
+    col1, col2 = st.columns(2)
+    with col1:
+        company = st.selectbox("Select Target Company:", ["Generic", "TCS", "Infosys", "Wipro", "Amazon"])
+    with col2:
+        difficulty = st.selectbox("Select Difficulty:", ["Easy", "Medium", "Hard"])
     
     if st.button("Start Test", type="primary"):
         st.session_state.difficulty = difficulty
-        start_test(difficulty)
-        st.rerun()
+        st.session_state.company = company
+        success = start_test(company, difficulty)
+        if success:
+            st.rerun()
 
 elif st.session_state.test_started and not st.session_state.submitted:
     # Check Timer
@@ -89,26 +103,41 @@ elif st.session_state.test_started and not st.session_state.submitted:
         submit_test()
         st.rerun()
     
-   
     mins, secs = divmod(int(time_left.total_seconds()), 60)
-    st.sidebar.markdown(f"### ⏱️ Time Left: {mins:02d}:{secs:02d}")
-    st.sidebar.progress(time_left.total_seconds() / (TEST_DURATION_MINUTES * 60))
     
-    
-    js_code = f"""
+    # HTML/JS Ticking Timer
+    timer_html = f"""
+    <div style="font-family: sans-serif; padding: 10px; border-radius: 8px; background: #262730; color: white; text-align: center; border: 1px solid #4B4C53;">
+        <h3 style="margin:0; font-size: 24px;">⏱️ <span id="timer">{mins:02d}:{secs:02d}</span></h3>
+    </div>
     <script>
-        setTimeout(function() {{
-            const buttons = window.parent.document.querySelectorAll('button');
-            buttons.forEach(btn => {{
-                if (btn.innerText === 'Submit Test') {{
-                    btn.click();
-                }}
-            }});
-        }}, {int(time_left.total_seconds() * 1000)});
+        var timeLeft = {int(time_left.total_seconds())};
+        var timerElement = window.parent.document.getElementById('timer');
+        if (!timerElement) {{
+            // If parent document access is blocked, render it inside the iframe itself
+            document.body.innerHTML = '<div style="font-family: sans-serif; padding: 10px; border-radius: 8px; background: #262730; color: white; text-align: center; border: 1px solid #4B4C53;"><h3 style="margin:0; font-size: 24px;">⏱️ <span id="inner_timer">{mins:02d}:{secs:02d}</span></h3></div>';
+            timerElement = document.getElementById('inner_timer');
+        }}
+        var countdown = setInterval(function() {{
+            if (timeLeft <= 0) {{
+                clearInterval(countdown);
+                const buttons = window.parent.document.querySelectorAll('button');
+                buttons.forEach(btn => {{
+                    if (btn.innerText === 'Submit Test') {{ btn.click(); }}
+                }});
+            }} else {{
+                timeLeft--;
+                var m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+                var s = (timeLeft % 60).toString().padStart(2, '0');
+                if (timerElement) timerElement.innerText = m + ':' + s;
+            }}
+        }}, 1000);
     </script>
     """
-    components.html(js_code, height=0, width=0)
-    
+    with st.sidebar:
+        components.html(timer_html, height=80)
+        st.progress(time_left.total_seconds() / (TEST_DURATION_MINUTES * 60))
+        
     st.write(f"**Difficulty:** {st.session_state.difficulty}")
     
     
