@@ -7,7 +7,7 @@ import streamlit.components.v1 as components
 
 # Configuration
 API_BASE_URL = "http://localhost:8000/api"
-TEST_DURATION_MINUTES = 60
+TEST_DURATION_MINUTES = 20
 
 st.set_page_config(page_title="Aptitude Test", page_icon="⏱️", layout="wide")
 
@@ -77,7 +77,7 @@ def submit_test():
 st.title("🧠 AI Aptitude Test (Company Specific)")
 
 if not st.session_state.test_started:
-    st.write("Welcome to the AI-generated Aptitude Test. You will have 60 minutes to complete 60 questions.")
+    st.write("Welcome to the AI-generated Aptitude Test. You will have 20 minutes to complete 20 questions.")
     st.write("Select a target company to get Previous Year Questions (PYQs).")
     
     col1, col2 = st.columns(2)
@@ -185,7 +185,7 @@ elif st.session_state.submitted:
         st.subheader("Summary")
         st.info(eval_data['summary'])
         
-        st.subheader("Detailed Review")
+        st.subheader("Correct Answers")
         
         for q in st.session_state.questions:
             
@@ -204,10 +204,9 @@ elif st.session_state.submitted:
                 
                 if result:
                     if result['is_correct']:
-                        st.success(f"Correct! Explanation: {result['explanation']}")
+                        st.success(f"Correct!")
                     else:
                         st.error(f"Incorrect. The correct option is **{result['correct_option']}**.")
-                        st.write(f"**Explanation:** {result['explanation']}")
                 else:
                     st.warning("Evaluation not available for this question.")
         

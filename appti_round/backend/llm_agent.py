@@ -52,21 +52,21 @@ async def generate_test(company: str, difficulty: str) -> List[QuestionModel]:
         all_db_questions = query.all()
         selected_questions = all_db_questions.copy()
         
-        # We need exactly 60 questions. If we don't have enough for this company, pad with Generic.
-        if len(selected_questions) < 60 and company != "Generic":
+        # We need exactly 20 questions. If we don't have enough for this company, pad with Generic.
+        if len(selected_questions) < 20 and company != "Generic":
             generic_questions = db.query(QuestionDB).filter(QuestionDB.company == "Generic").all()
             selected_questions.extend(generic_questions)
             
-        # If STILL less than 60, duplicate randomly until 60 so the test doesn't crash or run short
+        # If STILL less than 20, duplicate randomly until 20 so the test doesn't crash or run short
         if not selected_questions:
             raise Exception(f"No questions found at all! Please run the scraper or seed_db.py first.")
             
-        while len(selected_questions) < 60:
+        while len(selected_questions) < 20:
             selected_questions.append(random.choice(selected_questions))
             
-        # Shuffle and pick exactly 60 questions
+        # Shuffle and pick exactly 20 questions
         random.shuffle(selected_questions)
-        selected_questions = selected_questions[:60]
+        selected_questions = selected_questions[:20]
         
         formatted_questions = []
         for i, q in enumerate(selected_questions):
@@ -89,8 +89,7 @@ async def generate_test(company: str, difficulty: str) -> List[QuestionModel]:
 
 
 class EvaluationOutput(BaseModel):
-    results: List[Dict[str, Any]] = Field(description="List of results per question with question_id, is_correct, correct_option, and explanation")
-    summary: str = Field(description="A short summary of the user's performance")
+    results: List[Dict[str, Any]] = Field(description="List of results per question with question_id, is_correct, and correct_option")
 
 eval_parser = JsonOutputParser(pydantic_object=EvaluationOutput)
 
@@ -105,17 +104,16 @@ Here are the questions and the options provided to the user:
 Here are the user's selected answers:
 {answers}
 
-Evaluate the user's answers. Provide the correct option (A, B, C, or D) for each question, whether the user was correct, and a brief explanation of the correct answer. Also, provide a short overall summary of their performance.
+Evaluate the user's answers. Provide the correct option (A, B, C, or D) for each question and whether the user was correct. DO NOT provide any explanations.
 \n{format_instructions}""",
         input_variables=["difficulty", "questions", "answers"],
         partial_variables={"format_instructions": eval_parser.get_format_instructions()}
     )
     
-    chain = prompt | llm | eval_parser
+    eval_llm = ChatGroq(api_key=os.getenv("EVAL_GROQ_API_KEY"), model="llama-3.1-8b-instant", temperature=0.7)
+    chain = prompt | eval_llm | eval_parser
     
-    # We must chunk the questions because 60 questions will exceed the LLM's output token limit
-    # and cause the JSON parser to crash from truncated JSON.
-    chunk_size = 15
+    chunk_size = 20
     tasks = []
     
     for i in range(0, len(questions), chunk_size):
@@ -135,20 +133,11 @@ Evaluate the user's answers. Provide the correct option (A, B, C, or D) for each
         
         # Combine the results
         all_results = []
-        combined_summary = ""
         for res in chunk_results:
             all_results.extend(res.get("results", []))
-            combined_summary += res.get("summary", "") + " "
             
         total_score = sum(1 for r in all_results if r.get("is_correct"))
-        
-        # Final summary pass: combine the multiple chunk summaries into one clean summary
-        summary_prompt = PromptTemplate(
-            template="Summarize the following partial performance reviews into a single, cohesive, short 3-sentence performance summary for an aptitude test user. Write directly to the user.\n\nReviews:\n{reviews}",
-            input_variables=["reviews"]
-        )
-        summary_chain = summary_prompt | llm
-        final_summary = await summary_chain.ainvoke({"reviews": combined_summary})
+        final_summary = f"You answered {total_score} out of {len(questions)} questions correctly."
         
         final_eval = []
         for r in all_results:
@@ -156,14 +145,14 @@ Evaluate the user's answers. Provide the correct option (A, B, C, or D) for each
                 question_id=int(r.get("question_id", 0)),
                 is_correct=bool(r.get("is_correct", False)),
                 correct_option=str(r.get("correct_option", "A")),
-                explanation=str(r.get("explanation", "No explanation provided."))
+                explanation=""
             ))
             
         return EvaluationResponse(
             total_score=total_score,
             max_score=len(questions),
             results=final_eval,
-            summary=final_summary.content if hasattr(final_summary, "content") else str(final_summary)
+            summary=final_summary
         )
         
     except Exception as e:
