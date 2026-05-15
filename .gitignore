@@ -205,3 +205,10 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Compiler temp files
+compiler/backend/temp/*
+!compiler/backend/temp/.gitkeep
+compiler/backend/testcases/*
+!compiler/backend/testcases/.gitkeep
+
