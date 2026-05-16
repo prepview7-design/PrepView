@@ -1,9 +1,9 @@
-from enum import StrEnum
+from enum import Enum
 
 from pydantic import BaseModel, Field
 
 
-class Language(StrEnum):
+class Language(str, Enum):
     python = "python"
     c = "c"
     cpp = "cpp"

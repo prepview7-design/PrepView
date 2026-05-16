@@ -1,3 +1,12 @@
+import sys
+import os
+from pathlib import Path
+
+# Add the parent directory to sys.path to resolve 'app' module imports
+parent_dir = str(Path(__file__).parent.parent)
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -141,3 +150,7 @@ def run(request: RunRequest) -> RunResponse:
         stdin=request.stdin,
         timeout_seconds=request.timeout_seconds,
     )
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
