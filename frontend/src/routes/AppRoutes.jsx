@@ -6,6 +6,9 @@ import Register  from '../pages/Register';
 import Home      from '../pages/Home';
 import CVUpload  from '../pages/CVUpload';
 import Profile   from '../pages/Profile';
+import ApptiRound from '../pages/ApptiRound';
+import AvatarInterview from '../pages/AvatarInterview';
+import Compiler  from '../pages/Compiler';
 
 // ── Private Route Guard ────────────────────────────────────
 const PrivateRoute = ({ children }) => {
@@ -43,6 +46,15 @@ const AppRoutes = () => (
       } />
       <Route path="/profile" element={
         <PrivateRoute><Profile /></PrivateRoute>
+      } />
+      <Route path="/appti-round" element={
+        <PrivateRoute><ApptiRound /></PrivateRoute>
+      } />
+      <Route path="/avatar-interview" element={
+        <PrivateRoute><AvatarInterview /></PrivateRoute>
+      } />
+      <Route path="/compiler" element={
+        <PrivateRoute><Compiler /></PrivateRoute>
       } />
 
       {/* 404 fallback */}

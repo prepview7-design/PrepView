@@ -119,3 +119,7 @@ async def evaluate(session_id: str = Form(...)):
     result = evaluate_interview(messages)
     
     return result
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("backend.main:app", host="0.0.0.0", port=8002, reload=True)
