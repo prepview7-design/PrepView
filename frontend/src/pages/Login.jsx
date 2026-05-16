@@ -109,7 +109,7 @@ const Login = () => {
 
   // ── Google OAuth — redirect to backend ───────────────────
   const handleGoogleLogin = () => {
-    window.location.href = `${API}/api/auth/google`;
+    window.location.href = `${API}/auth/google`;
   };
 
   // ── Twitter OAuth — redirect to backend ──────────────────

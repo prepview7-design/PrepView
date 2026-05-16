@@ -110,7 +110,11 @@ export default function AvatarInterview() {
 
       toast.success('Interview started!');
     } catch (error) {
-      toast.error(error.message);
+      toast.error(
+       typeof error.message === 'string'
+        ? error.message
+        : 'Something went wrong'
+       );
     } finally {
       setIsLoading(false);
     }
@@ -209,8 +213,11 @@ export default function AvatarInterview() {
         );
 
       if (data.error) {
-        toast.error(data.error);
-
+        toast.error(
+        typeof error.message === 'string'
+         ? error.message
+        : 'Something went wrong'
+      );
         return;
       }
 
@@ -244,24 +251,20 @@ export default function AvatarInterview() {
     audioElementRef.current.pause();
 
     try {
-      const response = await fetch(
-        `${API_URL}/evaluations/interview`,
-        {
-          method: 'POST',
+    const formData = new FormData();
 
-          headers: {
-            'Content-Type':
-              'application/json',
-          },
+formData.append(
+  'session_id',
+  sessionId
+);
 
-          credentials: 'include',
-
-          body: JSON.stringify({
-            session_id: sessionId,
-            role: role,
-          }),
-        }
-      );
+const response = await fetch(
+  `${API_URL}/avatar_interview/evaluate`,
+  {
+    method: 'POST',
+    body: formData,
+  }
+);
 
       const data = await response.json();
 
@@ -277,7 +280,11 @@ export default function AvatarInterview() {
         'Interview evaluation complete!'
       );
     } catch (error) {
-      toast.error(error.message);
+    toast.error(
+    typeof error.message === 'string'
+      ? error.message
+      : 'Evaluation failed'
+  );
     } finally {
       setIsLoading(false);
     }
@@ -675,7 +682,7 @@ export default function AvatarInterview() {
 
               <div style={styles.score}>
                 {
-                  evaluation.probability_of_selection
+                  evaluation.probability
                 }
               </div>
             </div>
