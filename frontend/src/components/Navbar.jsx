@@ -28,7 +28,7 @@ const Navbar = () => {
 
         {/* Links */}
         <div style={styles.links}>
-          <Link to="/home"      style={styles.link}>Feed</Link>
+          <Link to="/home"      style={styles.link}>Home</Link>
           <Link to="/cv-upload" style={styles.link}>Upload CV</Link>
         </div>
 
