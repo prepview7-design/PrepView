@@ -36,7 +36,7 @@ export default function ApptiRound() {
   const [currentQuestion, setCurrentQuestion] =
     useState(0);
 
-  const [timeLeft, setTimeLeft] = useState(1800);
+  const [timeLeft, setTimeLeft] = useState(1200);
 
   /* TIMER */
   useEffect(() => {
@@ -150,7 +150,7 @@ export default function ApptiRound() {
         }));
 
       const response = await fetch(
-        `${API_URL}/api/evaluations/aptitude`,
+        `${API_URL}/appti_round/api/evaluate-test`,
         {
           method: 'POST',
 
@@ -392,7 +392,7 @@ export default function ApptiRound() {
                       }
                     >
                       {
-                        current?.question_text
+                        current?.question
                       }
                     </h2>
                   </div>
@@ -407,62 +407,48 @@ export default function ApptiRound() {
                 {/* OPTIONS */}
                 <div style={styles.optionsWrapper}>
 
-                  {current &&
-                    Object.entries(
-                      current.options
-                    ).map(
-                      ([key, value]) => (
-                        <div
-                          key={key}
-                          onClick={() =>
-                            handleOptionSelect(
-                              current.id,
-                              key
-                            )
-                          }
-                          style={{
-                            ...styles.optionCard,
+                 {current &&
+  current.options.map((option) => (
+    <div
+      key={option.key}
+      onClick={() =>
+        handleOptionSelect(
+          current.id,
+          option.key
+        )
+      }
+      style={{
+        ...styles.optionCard,
 
-                            border:
-                              answers[
-                                current.id
-                              ] === key
-                                ? '2px solid #2563EB'
-                                : '1px solid #1E293B',
+        border:
+          answers[current.id] === option.key
+            ? '2px solid #2563EB'
+            : '1px solid #1E293B',
 
-                            background:
-                              answers[
-                                current.id
-                              ] === key
-                                ? 'rgba(37,99,235,0.12)'
-                                : '#111827',
-                          }}
-                        >
-                          <div
-                            style={{
-                              ...styles.optionCircle,
+        background:
+          answers[current.id] === option.key
+            ? 'rgba(37,99,235,0.12)'
+            : '#111827',
+      }}
+    >
+      <div
+        style={{
+          ...styles.optionCircle,
 
-                              background:
-                                answers[
-                                  current.id
-                                ] === key
-                                  ? '#2563EB'
-                                  : '#1E293B',
-                            }}
-                          >
-                            {key}
-                          </div>
+          background:
+            answers[current.id] === option.key
+              ? '#2563EB'
+              : '#1E293B',
+        }}
+      >
+        {option.key}
+      </div>
 
-                          <div
-                            style={
-                              styles.optionText
-                            }
-                          >
-                            {value}
-                          </div>
-                        </div>
-                      )
-                    )}
+      <div style={styles.optionText}>
+        {option.value}
+      </div>
+    </div>
+  ))}
                 </div>
 
                 {/* NAVIGATION */}
@@ -548,13 +534,13 @@ export default function ApptiRound() {
               </h2>
 
               <div style={styles.score}>
-                {evaluation.score} /{' '}
-                {evaluation.total}
+                {evaluation.total_score} /{' '}
+                {evaluation.max_score}
               </div>
 
               <p style={styles.feedback}>
                 {
-                  evaluation.feedback_summary
+                  evaluation.summary
                 }
               </p>
 
@@ -581,7 +567,7 @@ export default function ApptiRound() {
                 Detailed Review
               </h3>
 
-              {evaluation.detailed_results.map(
+              {evaluation.results.map(
                 (res, idx) => (
                   <div
                     key={idx}
@@ -605,7 +591,7 @@ export default function ApptiRound() {
                         }
                       >
                         {idx + 1}.{' '}
-                        {res.question_text}
+                        Question {res.question_id}  
                       </h4>
 
                       <div
@@ -634,27 +620,7 @@ export default function ApptiRound() {
                         styles.answerGrid
                       }
                     >
-                      <div
-                        style={
-                          styles.answerBox
-                        }
-                      >
-                        <div
-                          style={
-                            styles.answerLabel
-                          }
-                        >
-                          Your Answer
-                        </div>
-
-                        <div
-                          style={
-                            styles.answerValue
-                          }
-                        >
-                          {res.user_answer}
-                        </div>
-                      </div>
+                      
 
                       <div
                         style={{
@@ -681,7 +647,7 @@ export default function ApptiRound() {
                           }
                         >
                           {
-                            res.correct_answer
+                            res.correct_option
                           }
                         </div>
                       </div>
