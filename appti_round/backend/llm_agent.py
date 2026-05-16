@@ -110,7 +110,7 @@ Evaluate the user's answers. Provide the correct option (A, B, C, or D) for each
         partial_variables={"format_instructions": eval_parser.get_format_instructions()}
     )
     
-    eval_llm = ChatGroq(api_key=os.getenv("EVAL_GROQ_API_KEY"), model="llama-3.1-8b-instant", temperature=0.7)
+    eval_llm = ChatGroq(api_key=os.getenv("EVAL_GROQ_API_KEY"), model="llama-3.1-8b-instant", temperature=0.0)
     chain = prompt | eval_llm | eval_parser
     
     chunk_size = 20

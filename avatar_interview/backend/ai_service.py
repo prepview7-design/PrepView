@@ -1,4 +1,6 @@
 import os
+import requests
+import json
 from groq import Groq
 from dotenv import load_dotenv
 from gtts import gTTS
@@ -27,9 +29,9 @@ Follow these guidelines strictly:
 def get_next_response(messages: list) -> str:
     try:
         response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="llama-3.1-8b-instant", 
             messages=messages,
-            temperature=0.7,
+            temperature=0.5,
             max_tokens=250
         )
         return response.choices[0].message.content
@@ -71,10 +73,17 @@ def evaluate_interview(messages: list) -> dict:
             model="llama-3.1-8b-instant",
             messages=eval_messages,
             response_format={ "type": "json_object" },
-            temperature=0.3
+            temperature=0.0
         )
-        import json
-        return json.loads(response.choices[0].message.content)
+        content = response.choices[0].message.content
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError:
+            import re
+            match = re.search(r'\{.*\}', content, re.DOTALL)
+            if match:
+                return json.loads(match.group(0))
+            return {"probability": 0, "feedback": "Failed to parse JSON evaluation from the model."}
     except Exception as e:
         print(f"Evaluation error: {e}")
         return {"probability": 0, "feedback": "Evaluation failed due to an error."}
