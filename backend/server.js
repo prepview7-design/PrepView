@@ -6,6 +6,7 @@ const helmet       = require('helmet');
 const session      = require('express-session');
 const passport     = require('passport');
 const connectDB    = require('./config/db');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 // Load passport strategies
 require('./config/passport');
@@ -22,8 +23,28 @@ app.use(helmet());
 
 // ── CORS — allow frontend and pass cookies ─────────────────
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
+}));
+
+// ── Microservices Proxy Routes ─────────────────────────────
+// Setup proxies BEFORE body parsers so the streams remain intact (crucial for file uploads in avatar_interview)
+app.use('/api/appti_round', createProxyMiddleware({
+  target: 'http://localhost:8001',
+  changeOrigin: true,
+  pathRewrite: { '^/api/appti_round': '' }, // Removes /api/appti_round prefix
+}));
+
+app.use('/api/avatar_interview', createProxyMiddleware({
+  target: 'http://localhost:8002',
+  changeOrigin: true,
+  pathRewrite: { '^/api/avatar_interview': '' }, // Removes /api/avatar_interview prefix
+}));
+
+app.use('/api/compiler', createProxyMiddleware({
+  target: 'http://localhost:8000',
+  changeOrigin: true,
+  pathRewrite: { '^/api/compiler': '' }, // Removes /api/compiler prefix
 }));
 
 // ── Body & Cookie Parsers ──────────────────────────────────
@@ -49,8 +70,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ── Routes ─────────────────────────────────────────────────
+const evaluationRoutes = require('./routes/evaluationRoutes');
+
 app.use('/api/auth', authRoutes);
 app.use('/api/cv',   cvRoutes);
+app.use('/api/evaluations', evaluationRoutes);
 
 // ── Health check ───────────────────────────────────────────
 app.get('/api/health', (req, res) => res.json({ status: 'OK' }));

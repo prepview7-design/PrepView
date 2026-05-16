@@ -30,6 +30,9 @@ const Navbar = () => {
         <div style={styles.links}>
           <Link to="/home"      style={styles.link}>Home</Link>
           <Link to="/cv-upload" style={styles.link}>Upload CV</Link>
+          <Link to="/appti-round" style={styles.link}>Aptitude Test</Link>
+          <Link to="/avatar-interview" style={styles.link}>AI Interview</Link>
+          <Link to="/compiler" style={styles.link}>Compiler</Link>
         </div>
 
         {/* User & Logout */}
