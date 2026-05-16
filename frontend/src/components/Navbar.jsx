@@ -44,7 +44,7 @@ const Navbar = () => {
           style={{
             width: 32,
             height: 32,
-            borderRadius: '50%',
+            borderRadius: '40%',
             objectFit: 'cover',
           }}
         />
