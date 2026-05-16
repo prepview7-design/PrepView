@@ -4,13 +4,22 @@ import base64
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from backend.ai_service import (
-    generate_system_prompt,
-    get_next_response,
-    transcribe_audio,
-    generate_speech,
-    evaluate_interview
-)
+try:
+    from backend.ai_service import (
+        generate_system_prompt,
+        get_next_response,
+        transcribe_audio,
+        generate_speech,
+        evaluate_interview
+    )
+except ModuleNotFoundError:
+    from ai_service import (
+        generate_system_prompt,
+        get_next_response,
+        transcribe_audio,
+        generate_speech,
+        evaluate_interview
+    )
 
 app = FastAPI(title="AI Avatar Interview API")
 
@@ -29,6 +38,8 @@ class StartRequest(BaseModel):
     role: str
 
 def encode_audio(file_path: str) -> str:
+    if not os.path.exists(file_path):
+        return ""
     with open(file_path, "rb") as f:
         return base64.b64encode(f.read()).decode('utf-8')
 

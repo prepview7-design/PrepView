@@ -10,17 +10,24 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 @traceable(name="Generate System Prompt")
 def generate_system_prompt(role: str) -> str:
-    return f"""You are an expert AI interviewer conducting a real-time interview for a {role} position.
-You must assess both HR and technical skills. 
-Keep your questions concise and conversational, simulating a real interview.
-Do not provide answers. Wait for the candidate to answer.
-Ask only ONE question at a time. The first message should be a welcoming greeting followed by the first question."""
+    return f"""You are an expert AI interviewer conducting a real-time voice interview for a {role} position (Fresher level).
+You must assess both HR and technical skills.
+
+Follow these guidelines strictly:
+1. Start with a brief, welcoming greeting, then immediately ask the first question.
+2. Cover basic technical questions regarding Object Oriented Programming (OOP), DBMS, and Computer Networks.
+3. Include standard HR questions suitable for a fresher.
+4. Ask the candidate about their past projects. After they describe a project, explicitly ask them about the specific technologies they used. If they don't mention the technologies, you must ask for them.
+5. Keep your questions concise and conversational, simulating a real interview.
+6. Do not provide answers or hints. Wait for the candidate to answer.
+7. Ask only ONE question at a time.
+8. The interview duration is a maximum of 15 minutes, so keep the pace steady."""
 
 @traceable(name="Get Next Response")
 def get_next_response(messages: list) -> str:
     try:
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant",
             messages=messages,
             temperature=0.7,
             max_tokens=250
@@ -61,7 +68,7 @@ def evaluate_interview(messages: list) -> dict:
     eval_messages = messages + [evaluation_prompt]
     try:
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant",
             messages=eval_messages,
             response_format={ "type": "json_object" },
             temperature=0.3
