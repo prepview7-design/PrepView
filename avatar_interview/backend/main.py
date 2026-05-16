@@ -4,6 +4,16 @@ import base64
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+
+executor = ThreadPoolExecutor(max_workers=10)
+avatar_semaphore = asyncio.Semaphore(10)
+
+async def run_sync_in_thread(func, *args):
+    loop = asyncio.get_running_loop()
+    async with avatar_semaphore:
+        return await loop.run_in_executor(executor, func, *args)
 try:
     from backend.ai_service import (
         generate_system_prompt,
@@ -52,13 +62,13 @@ async def start_interview(req: StartRequest):
         {"role": "system", "content": system_prompt}
     ]
     
-    ai_response_text = get_next_response(messages)
+    ai_response_text = await run_sync_in_thread(get_next_response, messages)
     messages.append({"role": "assistant", "content": ai_response_text})
     sessions[session_id] = messages
     
     # Generate audio
     audio_path = f"temp_{session_id}.mp3"
-    generate_speech(ai_response_text, audio_path)
+    await run_sync_in_thread(generate_speech, ai_response_text, audio_path)
     
     audio_b64 = encode_audio(audio_path)
     if os.path.exists(audio_path):
@@ -83,7 +93,7 @@ async def chat(session_id: str = Form(...), audio: UploadFile = File(...)):
         f.write(await audio.read())
         
     # Transcribe
-    user_text = transcribe_audio(user_audio_path)
+    user_text = await run_sync_in_thread(transcribe_audio, user_audio_path)
     if os.path.exists(user_audio_path):
         os.remove(user_audio_path)
         
@@ -93,12 +103,12 @@ async def chat(session_id: str = Form(...), audio: UploadFile = File(...)):
     messages.append({"role": "user", "content": user_text})
     
     # Get AI Response
-    ai_response_text = get_next_response(messages)
+    ai_response_text = await run_sync_in_thread(get_next_response, messages)
     messages.append({"role": "assistant", "content": ai_response_text})
     
     # Generate audio
     ai_audio_path = f"ai_{session_id}.mp3"
-    generate_speech(ai_response_text, ai_audio_path)
+    await run_sync_in_thread(generate_speech, ai_response_text, ai_audio_path)
     
     audio_b64 = encode_audio(ai_audio_path)
     if os.path.exists(ai_audio_path):
@@ -116,7 +126,7 @@ async def evaluate(session_id: str = Form(...)):
         raise HTTPException(status_code=404, detail="Session not found")
         
     messages = sessions[session_id]
-    result = evaluate_interview(messages)
+    result = await run_sync_in_thread(evaluate_interview, messages)
     
     return result
 

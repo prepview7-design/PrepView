@@ -21,6 +21,26 @@ const app = express();
 // ── Security ───────────────────────────────────────────────
 app.use(helmet());
 
+// ── Native Rate Limiter ─────────────────────────────────────
+const rateLimitMap = new Map();
+// Clear limits every 15 minutes
+setInterval(() => rateLimitMap.clear(), 15 * 60 * 1000);
+
+const rateLimiter = (maxRequests) => (req, res, next) => {
+  const ip = req.ip || req.connection?.remoteAddress || 'unknown';
+  const currentRequests = rateLimitMap.get(ip) || 0;
+  
+  if (currentRequests >= maxRequests) {
+    return res.status(429).json({ error: "Too many requests. Please try again later." });
+  }
+  
+  rateLimitMap.set(ip, currentRequests + 1);
+  next();
+};
+
+// Apply a global limit of 200 requests per 15 minutes for all API routes
+app.use('/api', rateLimiter(200));
+
 // ── CORS — allow frontend and pass cookies ─────────────────
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:5173',

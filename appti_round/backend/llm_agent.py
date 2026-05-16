@@ -2,6 +2,7 @@ import os
 import json
 import asyncio
 from typing import TypedDict, List, Dict, Any
+from cachetools import cached, TTLCache
 from dotenv import load_dotenv
 
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -35,56 +36,68 @@ else:
     raise ValueError("Please set GROQ_API_KEY, GOOGLE_API_KEY, or OPENAI_API_KEY in the .env file")
 
 
-async def generate_test(company: str, difficulty: str) -> List[QuestionModel]:
-    """
-    Fetches company-specific questions from the SQLite database instead of generating them on the fly.
-    """
+question_pool_cache = TTLCache(maxsize=100, ttl=3600)
+
+@cached(cache=question_pool_cache)
+def _get_questions_pool(company: str) -> List[Dict[str, Any]]:
     db = SessionLocal()
     try:
-        # Fetch all matching questions from the DB
         query = db.query(QuestionDB)
         if company != "Generic":
             query = query.filter(QuestionDB.company == company)
-            
-        # Optional: filter by difficulty if we have enough questions
-        # query = query.filter(QuestionDB.difficulty == difficulty)
-        
         all_db_questions = query.all()
-        selected_questions = all_db_questions.copy()
         
-        # We need exactly 20 questions. If we don't have enough for this company, pad with Generic.
-        if len(selected_questions) < 20 and company != "Generic":
-            generic_questions = db.query(QuestionDB).filter(QuestionDB.company == "Generic").all()
-            selected_questions.extend(generic_questions)
-            
-        # If STILL less than 20, duplicate randomly until 20 so the test doesn't crash or run short
-        if not selected_questions:
-            raise Exception(f"No questions found at all! Please run the scraper or seed_db.py first.")
-            
-        while len(selected_questions) < 20:
-            selected_questions.append(random.choice(selected_questions))
-            
-        # Shuffle and pick exactly 20 questions
-        random.shuffle(selected_questions)
-        selected_questions = selected_questions[:20]
-        
-        formatted_questions = []
-        for i, q in enumerate(selected_questions):
-            options_data = json.loads(q.options_json)
-            options = [QuestionOption(key=opt['key'], value=opt['value']) for opt in options_data]
-            
-            formatted_questions.append(
-                QuestionModel(
-                    id=i + 1,
-                    category=q.category,
-                    question=q.question_text,
-                    options=options
-                )
-            )
-            
-        return formatted_questions
+        serialized = []
+        for q in all_db_questions:
+            serialized.append({
+                "category": q.category,
+                "question_text": q.question_text,
+                "options_json": q.options_json
+            })
+        return serialized
     finally:
         db.close()
+
+
+async def generate_test(company: str, difficulty: str) -> List[QuestionModel]:
+    """
+    Fetches company-specific questions from the SQLite database with caching in a thread pool.
+    """
+    loop = asyncio.get_running_loop()
+    pool = await loop.run_in_executor(None, _get_questions_pool, company)
+    selected_questions = pool.copy()
+    
+    # We need exactly 20 questions. If we don't have enough for this company, pad with Generic.
+    if len(selected_questions) < 20 and company != "Generic":
+        generic_pool = _get_questions_pool("Generic")
+        selected_questions.extend(generic_pool)
+        
+    # If STILL less than 20, duplicate randomly until 20 so the test doesn't crash or run short
+    if not selected_questions:
+        raise Exception(f"No questions found at all! Please run the scraper or seed_db.py first.")
+        
+    while len(selected_questions) < 20:
+        selected_questions.append(random.choice(selected_questions))
+        
+    # Shuffle and pick exactly 20 questions
+    random.shuffle(selected_questions)
+    selected_questions = selected_questions[:20]
+    
+    formatted_questions = []
+    for i, q in enumerate(selected_questions):
+        options_data = json.loads(q["options_json"])
+        options = [QuestionOption(key=opt['key'], value=opt['value']) for opt in options_data]
+        
+        formatted_questions.append(
+            QuestionModel(
+                id=i + 1,
+                category=q["category"],
+                question=q["question_text"],
+                options=options
+            )
+        )
+        
+    return formatted_questions
 
 
 
@@ -110,19 +123,32 @@ Evaluate the user's answers. Provide the correct option (A, B, C, or D) for each
         partial_variables={"format_instructions": eval_parser.get_format_instructions()}
     )
     
-    eval_llm = ChatGroq(api_key=os.getenv("EVAL_GROQ_API_KEY"), model="llama-3.1-8b-instant", temperature=0.0)
+    eval_llm = ChatGroq(
+        api_key=os.getenv("EVAL_GROQ_API_KEY"), 
+        model="llama-3.1-8b-instant", 
+        temperature=0.0,
+        model_kwargs={"response_format": {"type": "json_object"}}
+    )
     chain = prompt | eval_llm | eval_parser
     
     chunk_size = 20
     tasks = []
     
+    global _global_eval_semaphore
+    if '_global_eval_semaphore' not in globals():
+        _global_eval_semaphore = asyncio.Semaphore(5)
+    
+    async def _evaluate_chunk(chunk_data: dict) -> dict:
+        async with _global_eval_semaphore:
+            return await chain.ainvoke(chunk_data)
+
     for i in range(0, len(questions), chunk_size):
         q_chunk = questions[i:i+chunk_size]
         a_chunk = [ans for ans in answers if any(ans['question_id'] == q.id for q in q_chunk)]
         
         q_data = [{"id": q.id, "question": q.question, "options": [{"key": o.key, "value": o.value} for o in q.options]} for q in q_chunk]
         
-        tasks.append(chain.ainvoke({
+        tasks.append(_evaluate_chunk({
             "difficulty": difficulty,
             "questions": json.dumps(q_data, indent=2),
             "answers": json.dumps(a_chunk, indent=2)

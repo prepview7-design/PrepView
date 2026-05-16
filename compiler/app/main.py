@@ -1,5 +1,8 @@
 import sys
 import os
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+from functools import partial
 from pathlib import Path
 
 # Add the parent directory to sys.path to resolve 'app' module imports
@@ -13,6 +16,9 @@ from fastapi.responses import HTMLResponse
 
 from app.models import HealthResponse, LanguageStatus, RunRequest, RunResponse
 from app.runner import is_language_available, language_tools, run_code
+
+compiler_executor = ThreadPoolExecutor(max_workers=5)
+compiler_semaphore = asyncio.Semaphore(5)
 
 app = FastAPI(
     title="Online Compiler and Interpreter API",
@@ -143,13 +149,17 @@ def health() -> HealthResponse:
 
 
 @app.post("/run", response_model=RunResponse)
-def run(request: RunRequest) -> RunResponse:
-    return run_code(
+async def run(request: RunRequest) -> RunResponse:
+    loop = asyncio.get_running_loop()
+    func = partial(
+        run_code,
         language=request.language,
         code=request.code,
         stdin=request.stdin,
         timeout_seconds=request.timeout_seconds,
     )
+    async with compiler_semaphore:
+        return await loop.run_in_executor(compiler_executor, func)
 
 if __name__ == "__main__":
     import uvicorn
