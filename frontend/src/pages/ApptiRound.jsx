@@ -83,7 +83,7 @@ export default function ApptiRound() {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/appti_round/api/generate-test`,
+        `${API_URL}/appti_round/api/generate-test`,
         {
           method: 'POST',
 

@@ -76,7 +76,7 @@ export default function AvatarInterview() {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/avatar_interview/start`,
+        `${API_URL}/avatar_interview/start`,
         {
           method: 'POST',
 
@@ -193,7 +193,7 @@ export default function AvatarInterview() {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/avatar_interview/chat`,
+        `${API_URL}/avatar_interview/chat`,
         {
           method: 'POST',
           body: formData,
@@ -245,7 +245,7 @@ export default function AvatarInterview() {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/evaluations/interview`,
+        `${API_URL}/evaluations/interview`,
         {
           method: 'POST',
 

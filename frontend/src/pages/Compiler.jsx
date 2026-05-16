@@ -48,7 +48,7 @@ export default function Compiler() {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/compiler/run`,
+        `${API_URL}/compiler/run`,
         {
           method: 'POST',
           headers: {
