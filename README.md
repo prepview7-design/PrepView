@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## PrepView 
 # Technology & Model Log
 
@@ -38,3 +39,6 @@ This document maps the specific tasks and features in the AI Aptitude Test appli
 **Task:** Displaying the interactive test, countdown timer, and results dashboard.
 * **Library:** `streamlit`
 * **Why:** Streamlit allows us to build complex, interactive data-driven web applications using pure Python, without needing to write complex React/Vue frontend code. It handles the session state, user inputs (dropdowns, radio buttons), and UI rendering.
+=======
+# PrepView
+>>>>>>> 6e2f81c734c8172a36ae535e5a4666172f9bea9e
