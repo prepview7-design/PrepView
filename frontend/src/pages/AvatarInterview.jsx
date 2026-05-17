@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 import toast from 'react-hot-toast';
+import { useAntiCheat } from '../hooks/useAntiCheat';
 
 const API_URL =
   import.meta.env.VITE_API_URL ||
@@ -49,6 +50,10 @@ export default function AvatarInterview() {
   const audioElementRef = useRef(
     new Audio()
   );
+
+  // Anti-Cheat Hook
+  const isInterviewActive = sessionId && !evaluation;
+  useAntiCheat(isInterviewActive, () => handleEvaluate());
 
   const playAudio = (base64String) => {
     if (!base64String) return;

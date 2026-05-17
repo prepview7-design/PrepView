@@ -9,6 +9,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useAntiCheat } from '../hooks/useAntiCheat';
 
 const API_URL =
   import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -35,6 +36,10 @@ export default function Compiler() {
     '⚡ Ready to execute code...'
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [hasFailed, setHasFailed] = useState(false);
+
+  // Anti-Cheat Hook
+  useAntiCheat(!hasFailed, () => setHasFailed(true));
 
   const handleLanguageChange = (e) => {
     const lang = e.target.value;
@@ -161,7 +166,15 @@ export default function Compiler() {
         </div>
 
         {/* MAIN GRID */}
-        <div style={styles.grid}>
+        {hasFailed ? (
+          <div style={{ textAlign: 'center', marginTop: '100px' }}>
+            <h2 style={{ color: '#EF4444', fontSize: '32px' }}>Disqualified</h2>
+            <p style={{ color: '#94A3B8', fontSize: '18px' }}>
+              Your session was terminated due to suspicious activity (cheating).
+            </p>
+          </div>
+        ) : (
+          <div style={styles.grid}>
 
           {/* LEFT SIDE */}
           <div style={styles.leftPanel}>
@@ -301,7 +314,7 @@ export default function Compiler() {
               </pre>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 
 import toast from 'react-hot-toast';
+import { useAntiCheat } from '../hooks/useAntiCheat';
 
 const API_URL =
   import.meta.env.VITE_API_URL ||
@@ -38,9 +39,13 @@ export default function ApptiRound() {
 
   const [timeLeft, setTimeLeft] = useState(1200);
 
+  // Anti-Cheat Hook
+  const isTestActive = questions.length > 0 && !evaluation;
+  useAntiCheat(isTestActive, () => handleSubmit());
+
   /* TIMER */
   useEffect(() => {
-    if (!questions.length || evaluation) return;
+    if (!isTestActive) return;
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
