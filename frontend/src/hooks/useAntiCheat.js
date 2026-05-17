@@ -41,6 +41,13 @@ export function useAntiCheat(isActive, onTriggerAutoSubmit) {
       }
     };
 
+    // 2.1 Enforce Fullscreen on interaction
+    const enforceFullscreen = () => {
+      if (!document.fullscreenElement && !hasSubmitted.current) {
+        requestFullscreen();
+      }
+    };
+
     // 3. Copy, Paste, Right Click Prevention
     const preventCheat = (e) => {
       e.preventDefault();
@@ -55,6 +62,8 @@ export function useAntiCheat(isActive, onTriggerAutoSubmit) {
     document.addEventListener('copy', preventCheat);
     document.addEventListener('paste', preventCheat);
     document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener("click", enforceFullscreen);
+    document.addEventListener("keydown", enforceFullscreen);
 
     // Enter Fullscreen automatically when active
     const requestFullscreen = async () => {
@@ -74,6 +83,8 @@ export function useAntiCheat(isActive, onTriggerAutoSubmit) {
       document.removeEventListener('copy', preventCheat);
       document.removeEventListener('paste', preventCheat);
       document.removeEventListener('contextmenu', (e) => e.preventDefault());
+      document.removeEventListener("click", enforceFullscreen);
+      document.removeEventListener("keydown", enforceFullscreen);
     };
   }, [isActive, onTriggerAutoSubmit]);
 
