@@ -33,7 +33,7 @@ const Profile = () => {
   };
 
   return (
-    <div style={{ maxWidth: 700, margin: '0 auto', padding: '32px 20px' }}>
+    <div style={{ maxWidth: 1100, margin: '0 auto', padding: '32px 20px' }}>
       <h1 style={{ fontSize: 22, fontWeight: 700, marginBottom: 24 }}>My Profile</h1>
 
       {/* ── Avatar & Name ── */}
@@ -99,18 +99,99 @@ const Profile = () => {
       {/* ── Stats ── */}
       <div style={s.card}>
         <h3 style={s.cardTitle}>Your Stats</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
-          {[
-            { label: 'Placement Score', value: user?.placementScore ?? 0 },
-            { label: 'Day Streak',      value: user?.streak ?? 0 },
-            { label: 'Badges',          value: user?.badges?.length ?? 0 },
-          ].map((st) => (
-            <div key={st.label} style={{ textAlign: 'center', padding: 12, background: '#f9f9f9', borderRadius: 8 }}>
-              <div style={{ fontSize: 24, fontWeight: 700 }}>{st.value}</div>
-              <div style={{ fontSize: 12, color: '#888' }}>{st.label}</div>
-            </div>
-          ))}
-        </div>
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+    gap: 16,
+  }}
+>
+  {[
+    {
+      label: 'Placement Score',
+      value: user?.placementScore ?? 0,
+      suffix: '%',
+      icon: '🎯',
+      color: '#EEF2FF',
+    },
+    {
+      label: 'Day Streak',
+      value: user?.streak ?? 0,
+      suffix: ' days',
+      icon: '🔥',
+      color: '#FFF4E5',
+    },
+    {
+      label: 'Badges',
+      value: user?.badges?.length ?? 0,
+      suffix: '',
+      icon: '🏅',
+      color: '#ECFDF3',
+    },
+    {
+      label: 'Practice Sessions',
+      value: user?.totalPractices ?? 0,
+      suffix: '',
+      icon: '📚',
+      color: '#F3F4F6',
+    },
+    {
+      label: 'Aptitude Tests',
+      value: user?.aptitudeTestsTaken ?? 0,
+      suffix: '',
+      icon: '🧠',
+      color: '#EEF2FF',
+    },
+    {
+      label: 'Mock Interviews',
+      value: user?.interviewsTaken ?? 0,
+      suffix: '',
+      icon: '🎤',
+      color: '#FFF4E5',
+    },
+  ].map((st) => (
+    <div
+      key={st.label}
+      style={{
+        padding: 20,
+        borderRadius: 16,
+        background: st.color,
+        border: '1px solid rgba(0,0,0,0.04)',
+      }}
+    >
+      <div
+        style={{
+          fontSize: 28,
+          marginBottom: 10,
+        }}
+      >
+        {st.icon}
+      </div>
+
+      <div
+        style={{
+          fontSize: 28,
+          fontWeight: 800,
+          color: '#111827',
+          marginBottom: 4,
+        }}
+      >
+        {st.value}
+        {st.suffix}
+      </div>
+
+      <div
+        style={{
+          fontSize: 13,
+          color: '#6B7280',
+          fontWeight: 500,
+        }}
+      >
+        {st.label}
+      </div>
+    </div>
+  ))}
+</div>
       </div>
 
       <button onClick={handleLogout} style={s.logoutBtn}>Sign Out</button>

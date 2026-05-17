@@ -165,7 +165,7 @@ export default function Compiler() {
           </div>
         </div>
 
-        {/* MAIN GRID */}
+        {/* MAIN CONTENT */}
         {hasFailed ? (
           <div style={{ textAlign: 'center', marginTop: '100px' }}>
             <h2 style={{ color: '#EF4444', fontSize: '32px' }}>Disqualified</h2>
@@ -176,145 +176,148 @@ export default function Compiler() {
         ) : (
           <div style={styles.grid}>
 
-          {/* LEFT SIDE */}
-          <div style={styles.leftPanel}>
+            {/* LEFT SIDE */}
+            <div style={styles.leftPanel}>
 
-            {/* EDITOR CARD */}
-            <div style={styles.card}>
+              {/* EDITOR CARD */}
+              <div style={styles.card}>
 
-              {/* TOP BAR */}
-              <div style={styles.topBar}>
+                {/* TOP BAR */}
+                <div style={styles.topBar}>
 
-                <div style={styles.topLeft}>
+                  <div style={styles.topLeft}>
 
-                  <div style={styles.dotRed}></div>
-                  <div style={styles.dotYellow}></div>
-                  <div style={styles.dotGreen}></div>
+                    <div style={styles.dotRed}></div>
+                    <div style={styles.dotYellow}></div>
+                    <div style={styles.dotGreen}></div>
 
-                  <div style={styles.fileInfo}>
-                    <FileCode2 size={16} />
+                    <div style={styles.fileInfo}>
+                      <FileCode2 size={16} />
+
+                      <span>
+                        main.
+                        {language === 'python'
+                          ? 'py'
+                          : language === 'cpp'
+                          ? 'cpp'
+                          : language}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={styles.topRight}>
+                    <span>Monaco Editor</span>
+
+                    <ChevronRight size={16} />
 
                     <span>
-                      main.
-                      {language === 'python'
-                        ? 'py'
-                        : language === 'cpp'
-                        ? 'cpp'
-                        : language}
+                      {language.toUpperCase()}
                     </span>
                   </div>
                 </div>
 
-                <div style={styles.topRight}>
-                  <span>Monaco Editor</span>
+                {/* EDITOR */}
+                <div style={styles.editorWrapper}>
 
-                  <ChevronRight size={16} />
+                  <Editor
+                    height="100%"
+                    language={
+                      language === 'c' ||
+                      language === 'cpp'
+                        ? 'cpp'
+                        : language
+                    }
+                    theme="vs-dark"
+                    value={code}
+                    onChange={(value) =>
+                      setCode(value)
+                    }
+                    options={{
+                      minimap: {
+                        enabled: false,
+                      },
 
-                  <span>
-                    {language.toUpperCase()}
-                  </span>
+                      fontSize: 15,
+
+                      smoothScrolling: true,
+
+                      scrollBeyondLastLine: false,
+
+                      automaticLayout: true,
+
+                      padding: {
+                        top: 20,
+                      },
+                    }}
+                  />
                 </div>
               </div>
 
-              {/* EDITOR */}
-              <div style={styles.editorWrapper}>
+              {/* INPUT CARD */}
+              <div style={styles.card}>
 
-                <Editor
-                  height="100%"
-                  language={
-                    language === 'c' ||
-                    language === 'cpp'
-                      ? 'cpp'
-                      : language
-                  }
-                  theme="vs-dark"
-                  value={code}
-                  onChange={(value) =>
-                    setCode(value)
-                  }
-                  options={{
-                    minimap: {
-                      enabled: false,
-                    },
+                <div style={styles.topBar}>
 
-                    fontSize: 15,
+                  <div style={styles.inputHeader}>
+                    <Terminal
+                      size={18}
+                      color="#60A5FA"
+                    />
 
-                    smoothScrolling: true,
+                    <span>Standard Input</span>
+                  </div>
+                </div>
 
-                    scrollBeyondLastLine: false,
+                <div style={styles.stdinContainer}>
 
-                    automaticLayout: true,
-
-                    padding: {
-                      top: 20,
-                    },
-                  }}
-                />
+                  <textarea
+                    rows={5}
+                    value={stdin}
+                    onChange={(e) =>
+                      setStdin(e.target.value)
+                    }
+                    placeholder="Enter custom input here..."
+                    style={styles.textarea}
+                  />
+                </div>
               </div>
             </div>
 
-            {/* INPUT CARD */}
-            <div style={styles.card}>
+            {/* OUTPUT PANEL */}
+            <div style={styles.outputCard}>
 
+              {/* TERMINAL HEADER */}
               <div style={styles.topBar}>
 
                 <div style={styles.inputHeader}>
                   <Terminal
                     size={18}
-                    color="#60A5FA"
+                    color="#4ADE80"
                   />
 
-                  <span>Standard Input</span>
+                  <span>Execution Terminal</span>
+                </div>
+
+                <div style={styles.liveStatus}>
+
+                  <div style={styles.liveDot}></div>
+
+                  <span>Live</span>
                 </div>
               </div>
 
-              <div style={styles.stdinContainer}>
+              {/* OUTPUT */}
+              <div style={styles.outputBody}>
 
-                <textarea
-                  rows={5}
-                  value={stdin}
-                  onChange={(e) =>
-                    setStdin(e.target.value)
-                  }
-                  placeholder="Enter custom input here..."
-                  style={styles.textarea}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* OUTPUT PANEL */}
-          <div style={styles.outputCard}>
-
-            {/* TERMINAL HEADER */}
-            <div style={styles.topBar}>
-
-              <div style={styles.inputHeader}>
-                <Terminal
-                  size={18}
-                  color="#4ADE80"
-                />
-
-                <span>Execution Terminal</span>
-              </div>
-
-              <div style={styles.liveStatus}>
-
-                <div style={styles.liveDot}></div>
-
-                <span>Live</span>
+                <pre style={styles.outputText}>
+                  {output}
+                </pre>
               </div>
             </div>
 
-            {/* OUTPUT */}
-            <div style={styles.outputBody}>
-
-              <pre style={styles.outputText}>
-                {output}
-              </pre>
-            </div>
           </div>
         )}
+
       </div>
     </div>
   );

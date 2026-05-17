@@ -45,10 +45,35 @@ const UserSchema = new mongoose.Schema(
     skills:         [{ type: String }],
 
     // Gamification
+ // Gamification
     placementScore: { type: Number, default: 0 },
-    streak:         { type: Number, default: 0 },
-    badges:         [{ type: String }],
-    lastActive:     { type: Date, default: Date.now },
+
+    streak: {
+      type: Number,
+      default: 0,
+    },
+
+    badges: [{ type: String }],
+
+    lastActive: {
+      type: Date,
+      default: Date.now,
+    },
+
+    totalPractices: {
+      type: Number,
+      default: 0,
+    },
+
+    aptitudeTestsTaken: {
+      type: Number,
+      default: 0,
+    },
+
+    interviewsTaken: {
+      type: Number,
+      default: 0,
+ },
   },
   { timestamps: true }
 );

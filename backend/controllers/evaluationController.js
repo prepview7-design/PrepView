@@ -5,6 +5,67 @@ const User = require('../models/User');
 // @desc    Evaluate Aptitude Test & Save
 // @route   POST /api/evaluations/aptitude
 // @access  Private
+const updateUserActivity = async (userId, scoreToAdd = 0) => {
+  const user = await User.findById(userId);
+
+  if (!user) return;
+
+  const today = new Date();
+
+  const lastActive = user.lastActive
+    ? new Date(user.lastActive)
+    : null;
+
+  let streak = user.streak || 0;
+
+  // Normalize dates
+  today.setHours(0,0,0,0);
+
+  if (lastActive) {
+    lastActive.setHours(0,0,0,0);
+
+    const diffDays =
+      Math.floor(
+        (today - lastActive) /
+        (1000 * 60 * 60 * 24)
+      );
+
+    if (diffDays === 0) {
+  // Same-day activity
+  streak = streak || 1;
+}
+else if (diffDays === 1) {
+  // Consecutive-day activity
+  streak += 1;
+}
+else if (diffDays > 1) {
+  // Missed days → reset streak
+  streak = 1;
+}
+  } else {
+    streak = 1;
+  }
+
+  // Badge Logic
+  const badges = [...user.badges];
+
+  if (streak >= 7 && !badges.includes('7 Day Streak')) {
+    badges.push('7 Day Streak');
+  }
+
+  if (streak >= 30 && !badges.includes('30 Day Streak')) {
+    badges.push('30 Day Streak');
+  }
+
+  await User.findByIdAndUpdate(userId, {
+    streak,
+    lastActive: new Date(),
+    badges,
+    $inc: {
+      placementScore: scoreToAdd,
+    },
+  });
+};
 exports.evaluateAptitude = async (req, res) => {
   try {
     const { difficulty, questions, answers, company } = req.body;
@@ -25,19 +86,33 @@ exports.evaluateAptitude = async (req, res) => {
 
     // 2. Save Result to MongoDB
     const result = await TestResult.create({
-      user: req.user._id, // Assuming req.user is populated by auth middleware
+      user: req.user._id,
       company: company || 'Unknown',
       difficulty: difficulty || 'Medium',
-      score: evaluationData.score,
-      total: evaluationData.total,
-      feedback_summary: evaluationData.feedback_summary,
-      detailed_results: evaluationData.detailed_results,
+
+      score: evaluationData.total_score,
+      total: evaluationData.max_score,
+
+      feedback_summary: evaluationData.summary,
+
+      detailed_results: evaluationData.results,
     });
 
     // 3. Update User Placement Score (Simple logic: add score)
-    await User.findByIdAndUpdate(req.user._id, {
-      $inc: { placementScore: evaluationData.score }
-    });
+      await updateUserActivity(
+        req.user._id,
+        evaluationData.total_score
+      );
+
+      await User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $inc: {
+            totalPractices: 1,
+            aptitudeTestsTaken: 1,
+          },
+        }
+      );
 
     // 4. Return to Frontend
     res.status(200).json(evaluationData);
@@ -81,18 +156,25 @@ exports.evaluateInterview = async (req, res) => {
     await InterviewResult.create({
       user: req.user._id,
       role: role || 'Unknown Role',
-      probability_of_selection: evaluationData.probability_of_selection,
+      probability_of_selection:`${evaluationData.probability}%`,
       feedback: evaluationData.feedback,
     });
 
     // 3. Update User Placement Score (Simple logic: extract percentage and add)
-    const probMatch = evaluationData.probability_of_selection.match(/\d+/);
-    if (probMatch) {
-      const scoreToAdd = parseInt(probMatch[0], 10);
-      await User.findByIdAndUpdate(req.user._id, {
-        $inc: { placementScore: scoreToAdd }
-      });
-    }
+      await updateUserActivity(
+        req.user._id,
+        evaluationData.probability
+      );
+
+      await User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $inc: {
+            totalPractices: 1,
+            interviewsTaken: 1,
+          },
+        }
+      );
 
     // 4. Return to Frontend
     res.status(200).json(evaluationData);

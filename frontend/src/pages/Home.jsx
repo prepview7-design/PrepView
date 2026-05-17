@@ -34,28 +34,31 @@ const COMPANY_CATEGORIES = [
 
 const QUICK_ACTIONS = [
   {
-    label: 'Start Mock Test',
-    icon: '🧪',
-    desc: 'Practice real interview questions',
-    path: '#',
+    label: 'Mock Interviews',
+    icon: '🎤',
+    desc: 'Practice AI-powered HR & technical interviews',
+    path: '/avatar-interview',
   },
+
   {
     label: 'Aptitude Practice',
     icon: '📐',
-    desc: 'Sharpen logical reasoning skills',
-    path: '#',
+    desc: 'Sharpen reasoning and quantitative aptitude',
+    path: '/appti-round',
   },
+
   {
-    label: 'Coding Rounds',
+    label: 'Coding Compiler',
     icon: '💻',
-    desc: 'Ace DSA and coding interviews',
-    path: '#',
+    desc: 'Practice coding rounds in real time',
+    path: '/compiler',
   },
+
   {
-    label: 'HR Preparation',
-    icon: '🤝',
-    desc: 'Master behavioral interview rounds',
-    path: '#',
+    label: 'Resume Analyzer',
+    icon: '📄',
+    desc: 'Improve your resume with AI insights',
+    path: '/cv-upload',
   },
 ];
 
@@ -63,31 +66,55 @@ const Home = () => {
   const { user } = useAuth();
 
   const stats = [
-    {
-      label: 'Placement Score',
-      value: user?.placementScore ?? 0,
-      icon: '🎯',
-      sub: 'Overall profile strength',
-    },
-    {
-      label: 'Day Streak',
-      value: user?.streak ?? 0,
-      icon: '🔥',
-      sub: 'Keep the momentum going',
-    },
-    {
-      label: 'Skills Found',
-      value: user?.skills?.length ?? 0,
-      icon: '⚡',
-      sub: 'Detected from your profile',
-    },
-    {
-      label: 'Badges Earned',
-      value: user?.badges?.length ?? 0,
-      icon: '🏅',
-      sub: 'Achievements unlocked',
-    },
-  ];
+  {
+    label: 'Interview Readiness',
+    value: `${user?.placementScore ?? 0}%`,
+    icon: '🎯',
+    sub: 'AI-calculated placement readiness',
+  },
+
+  {
+    label: 'Day Streak',
+    value: user?.streak ?? 0,
+    icon: '🔥',
+    sub: 'Consistency builds success',
+  },
+
+  {
+    label: 'Practice Sessions',
+    value: user?.totalPractices ?? 0,
+    icon: '📚',
+    sub: 'Total completed activities',
+  },
+
+  {
+    label: 'Mock Interviews',
+    value: user?.interviewsTaken ?? 0,
+    icon: '🎤',
+    sub: 'AI interview sessions completed',
+  },
+
+  {
+    label: 'Aptitude Tests',
+    value: user?.aptitudeTestsTaken ?? 0,
+    icon: '🧠',
+    sub: 'Logical reasoning practice tests',
+  },
+
+  {
+    label: 'Skills Found',
+    value: user?.skills?.length ?? 0,
+    icon: '⚡',
+    sub: 'Detected from resume & activity',
+  },
+
+  {
+    label: 'Badges Earned',
+    value: user?.badges?.length ?? 0,
+    icon: '🏅',
+    sub: 'Achievements unlocked',
+  },
+];
 
   return (
     <div style={styles.page}>
@@ -114,7 +141,7 @@ const Home = () => {
                 </Link>
               )}
 
-              <Link to="#" style={styles.secondaryBtn}>
+              <Link to="/appti-round" style={styles.secondaryBtn}>
                 🚀 Start Practice
               </Link>
             </div>
@@ -230,11 +257,25 @@ const Home = () => {
                 <div style={styles.progressSection}>
                   <div style={styles.progressTop}>
                     <span>Preparation Progress</span>
-                    <span>0%</span>
+                    <span>
+                      {Math.min(
+                        user?.placementScore ?? 0,
+                        100
+                      )}%
+                    </span>
                   </div>
 
                   <div style={styles.progressBarBg}>
-                    <div style={styles.progressBar}></div>
+                  <div
+                    style={{
+                      ...styles.progressBar,
+
+                      width: `${Math.min(
+                        user?.placementScore ?? 0,
+                        100
+                      )}%`,
+                    }}
+                  ></div>
                   </div>
                 </div>
 
@@ -575,10 +616,9 @@ const styles = {
   },
 
   progressBar: {
-    width: '0%',
-    height: '100%',
-    background: 'linear-gradient(90deg, #2D336B, #5B8DEF)',
-    borderRadius: '999px',
+  height: '100%',
+  background: 'linear-gradient(90deg, #2D336B, #5B8DEF)',
+  borderRadius: '999px',
   },
 
   practiceBtn: {
