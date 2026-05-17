@@ -1,0 +1,66 @@
+{
+  "folder": "Infosys",
+  "filename": "add-two-numbers.md",
+  "content": "# 2. Add Two Numbers\r\n**Difficulty:** Medium\r\n**Tags:** Linked List, Math, Recursion\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nYou are given two \r\nnon-empty\r\n linked lists representing two non-negative integers. The digits are stored in \r\nreverse order\r\n, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.\r\n\r\n\r\nYou may assume the two numbers do not contain any leading zero, except the number 0 itself.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\n\r\n\r\nInput:\r\n l1 = [2,4,3], l2 = [5,6,4]\r\n\r\nOutput:\r\n [7,0,8]\r\n\r\nExplanation:\r\n 342 + 465 = 807.\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n l1 = [0], l2 = [0]\r\n\r\nOutput:\r\n [0]\r\n\r\n\r\n\r\nExample 3:\r\n\r\n\r\n\r\n\r\nInput:\r\n l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]\r\n\r\nOutput:\r\n [8,9,9,9,0,0,0,1]\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\nThe number of nodes in each linked list is in the range \r\n[1, 100]\r\n.\r\n\r\n\r\n0 <= Node.val <= 9\r\n\r\n\r\nIt is guaranteed that the list represents a number that does not have leading zeros.\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode() : val(0), next(nullptr) {}\r\n *     ListNode(int x) : val(x), next(nullptr) {}\r\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode() {}\r\n *     ListNode(int val) { this.val = val; }\r\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\n# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution:\r\n    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\n# Definition for singly-linked list.\r\n# class ListNode(object):\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution(object):\r\n    def addTwoNumbers(self, l1, l2):\r\n        \"\"\"\r\n        :type l1: Optional[ListNode]\r\n        :type l2: Optional[ListNode]\r\n        :rtype: Optional[ListNode]\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * function ListNode(val, next) {\r\n *     this.val = (val===undefined ? 0 : val)\r\n *     this.next = (next===undefined ? null : next)\r\n * }\r\n */\r\n/**\r\n * @param {ListNode} l1\r\n * @param {ListNode} l2\r\n * @return {ListNode}\r\n */\r\nvar addTwoNumbers = function(l1, l2) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * class ListNode {\r\n *     val: number\r\n *     next: ListNode | null\r\n *     constructor(val?: number, next?: ListNode | null) {\r\n *         this.val = (val===undefined ? 0 : val)\r\n *         this.next = (next===undefined ? null : next)\r\n *     }\r\n * }\r\n */\r\n\r\nfunction addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     public int val;\r\n *     public ListNode next;\r\n *     public ListNode(int val=0, ListNode next=null) {\r\n *         this.val = val;\r\n *         this.next = next;\r\n *     }\r\n * }\r\n */\r\npublic class Solution {\r\n    public ListNode AddTwoNumbers(ListNode l1, ListNode l2) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     struct ListNode *next;\r\n * };\r\n */\r\nstruct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * type ListNode struct {\r\n *     Val int\r\n *     Next *ListNode\r\n * }\r\n */\r\nfunc addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\n/**\r\n * Example:\r\n * var li = ListNode(5)\r\n * var v = li.`val`\r\n * Definition for singly-linked list.\r\n * class ListNode(var `val`: Int) {\r\n *     var next: ListNode? = null\r\n * }\r\n */\r\nclass Solution {\r\n    fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     public var val: Int\r\n *     public var next: ListNode?\r\n *     public init() { self.val = 0; self.next = nil; }\r\n *     public init(_ val: Int) { self.val = val; self.next = nil; }\r\n *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\n// Definition for singly-linked list.\r\n// #[derive(PartialEq, Eq, Clone, Debug)]\r\n// pub struct ListNode {\r\n//   pub val: i32,\r\n//   pub next: Option<Box<ListNode>>\r\n// }\r\n// \r\n// impl ListNode {\r\n//   #[inline]\r\n//   fn new(val: i32) -> Self {\r\n//     ListNode {\r\n//       next: None,\r\n//       val\r\n//     }\r\n//   }\r\n// }\r\nimpl Solution {\r\n    pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# Definition for singly-linked list.\r\n# class ListNode\r\n#     attr_accessor :val, :next\r\n#     def initialize(val = 0, _next = nil)\r\n#         @val = val\r\n#         @next = _next\r\n#     end\r\n# end\r\n# @param {ListNode} l1\r\n# @param {ListNode} l2\r\n# @return {ListNode}\r\ndef add_two_numbers(l1, l2)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\n/**\r\n * Definition for a singly-linked list.\r\n * class ListNode {\r\n *     public $val = 0;\r\n *     public $next = null;\r\n *     function __construct($val = 0, $next = null) {\r\n *         $this->val = $val;\r\n *         $this->next = $next;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n\r\n    /**\r\n     * @param ListNode $l1\r\n     * @param ListNode $l2\r\n     * @return ListNode\r\n     */\r\n    function addTwoNumbers($l1, $l2) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * class ListNode {\r\n *   int val;\r\n *   ListNode? next;\r\n *   ListNode([this.val = 0, this.next]);\r\n * }\r\n */\r\nclass Solution {\r\n  ListNode? addTwoNumbers(ListNode? l1, ListNode? l2) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * class ListNode(_x: Int = 0, _next: ListNode = null) {\r\n *   var next: ListNode = _next\r\n *   var x: Int = _x\r\n * }\r\n */\r\nobject Solution {\r\n    def addTwoNumbers(l1: ListNode, l2: ListNode): ListNode = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\n# Definition for singly-linked list.\r\n#\r\n# defmodule ListNode do\r\n#   @type t :: %__MODULE__{\r\n#           val: integer,\r\n#           next: ListNode.t() | nil\r\n#         }\r\n#   defstruct val: 0, next: nil\r\n# end\r\n\r\ndefmodule Solution do\r\n  @spec add_two_numbers(l1 :: ListNode.t | nil, l2 :: ListNode.t | nil) :: ListNode.t | nil\r\n  def add_two_numbers(l1, l2) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n%% Definition for singly-linked list.\r\n%%\r\n%% -record(list_node, {val = 0 :: integer(),\r\n%%                     next = null :: 'null' | #list_node{}}).\r\n\r\n-spec add_two_numbers(L1 :: #list_node{} | null, L2 :: #list_node{} | null) -> #list_node{} | null.\r\nadd_two_numbers(L1, L2) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n; Definition for singly-linked list:\r\n#|\r\n\r\n; val : integer?\r\n; next : (or/c list-node? #f)\r\n(struct list-node\r\n  (val next) #:mutable #:transparent)\r\n\r\n; constructor\r\n(define (make-list-node [val 0])\r\n  (list-node val #f))\r\n\r\n|#\r\n\r\n(define/contract (add-two-numbers l1 l2)\r\n  (-> (or/c list-node? #f) (or/c list-node? #f) (or/c list-node? #f))\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "l1": [2,4,3],
+        "l2": [5,6,4]
+      },
+      "output": [7,0,8]
+    },
+
+    {
+      "input": {
+        "l1": [0],
+        "l2": [0]
+      },
+      "output": [0]
+    },
+
+    {
+      "input": {
+        "l1": [9,9,9,9,9,9,9],
+        "l2": [9,9,9,9]
+      },
+      "output": [8,9,9,9,0,0,0,1]
+    },
+
+    {
+      "input": {
+        "l1": [1,8],
+        "l2": [0]
+      },
+      "output": [1,8]
+    },
+
+    {
+      "input": {
+        "l1": [5],
+        "l2": [5]
+      },
+      "output": [0,1]
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "l1": [9,9,9],
+        "l2": [1]
+      },
+      "output": [0,0,0,1]
+    },
+
+    {
+      "input": {
+        "l1": [2,4,9],
+        "l2": [5,6,4,9]
+      },
+      "output": [7,0,4,0,1]
+    }
+  ]
+}
+}

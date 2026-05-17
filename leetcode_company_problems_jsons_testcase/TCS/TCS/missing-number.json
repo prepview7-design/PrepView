@@ -1,0 +1,55 @@
+{
+  "folder": "tcs",
+  "filename": "missing-number.md",
+  "content": "# 268. Missing Number\r\n**Difficulty:** Easy\r\n**Tags:** Array, Hash Table, Math, Binary Search, Bit Manipulation, Sorting\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nGiven an array \r\nnums\r\n containing \r\nn\r\n distinct numbers in the range \r\n[0, n]\r\n, return \r\nthe only number in the range that is missing from the array.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\nInput:\r\n \r\nnums = [3,0,1]\r\n\r\n\r\nOutput:\r\n \r\n2\r\n\r\n\r\nExplanation:\r\n\r\n\r\nn = 3\r\n since there are 3 numbers, so all numbers are in the range \r\n[0,3]\r\n. 2 is the missing number in the range since it does not appear in \r\nnums\r\n.\r\n\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n \r\nnums = [0,1]\r\n\r\n\r\nOutput:\r\n \r\n2\r\n\r\n\r\nExplanation:\r\n\r\n\r\nn = 2\r\n since there are 2 numbers, so all numbers are in the range \r\n[0,2]\r\n. 2 is the missing number in the range since it does not appear in \r\nnums\r\n.\r\n\r\n\r\n\r\n\r\nExample 3:\r\n\r\n\r\n\r\n\r\nInput:\r\n \r\nnums = [9,6,4,2,3,5,7,0,1]\r\n\r\n\r\nOutput:\r\n \r\n8\r\n\r\n\r\nExplanation:\r\n\r\n\r\nn = 9\r\n since there are 9 numbers, so all numbers are in the range \r\n[0,9]\r\n. 8 is the missing number in the range since it does not appear in \r\nnums\r\n.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\n \r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\nn == nums.length\r\n\r\n\r\n1 <= n <= 10\r\n4\r\n\r\n\r\n0 <= nums[i] <= n\r\n\r\n\r\nAll the numbers of \r\nnums\r\n are \r\nunique\r\n.\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\nFollow up:\r\n Could you implement a solution using only \r\nO(1)\r\n extra space complexity and \r\nO(n)\r\n runtime complexity?\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    int missingNumber(vector<int>& nums) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public int missingNumber(int[] nums) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def missingNumber(self, nums: List[int]) -> int:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def missingNumber(self, nums):\r\n        \"\"\"\r\n        :type nums: List[int]\r\n        :rtype: int\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {number[]} nums\r\n * @return {number}\r\n */\r\nvar missingNumber = function(nums) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction missingNumber(nums: number[]): number {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public int MissingNumber(int[] nums) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\nint missingNumber(int* nums, int numsSize) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc missingNumber(nums []int) int {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun missingNumber(nums: IntArray): Int {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func missingNumber(_ nums: [Int]) -> Int {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn missing_number(nums: Vec<i32>) -> i32 {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {Integer[]} nums\r\n# @return {Integer}\r\ndef missing_number(nums)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param Integer[] $nums\r\n     * @return Integer\r\n     */\r\n    function missingNumber($nums) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  int missingNumber(List<int> nums) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def missingNumber(nums: Array[Int]): Int = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec missing_number(nums :: [integer]) :: integer\r\n  def missing_number(nums) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec missing_number(Nums :: [integer()]) -> integer().\r\nmissing_number(Nums) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (missing-number nums)\r\n  (-> (listof exact-integer?) exact-integer?)\r\n  )\r\n```",
+  {
+  "test_cases": {
+    "public": [
+      {
+        "input": {
+          "nums": [3,0,1]
+        },
+        "output": 2
+      },
+      {
+        "input": {
+          "nums": [0,1]
+        },
+        "output": 2
+      },
+      {
+        "input": {
+          "nums": [9,6,4,2,3,5,7,0,1]
+        },
+        "output": 8
+      },
+      {
+        "input": {
+          "nums": [1]
+        },
+        "output": 0
+      },
+      {
+        "input": {
+          "nums": [0]
+        },
+        "output": 1
+      }
+    ],
+    "private": [
+      {
+        "input": {
+          "nums": [0,2,3,4,5]
+        },
+        "output": 1
+      },
+      {
+        "input": {
+          "nums": [5,2,1,0,4]
+        },
+        "output": 3
+      }
+    ]
+  }
+}
+}

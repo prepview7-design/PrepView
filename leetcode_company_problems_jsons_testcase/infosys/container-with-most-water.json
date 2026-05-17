@@ -1,0 +1,59 @@
+{
+  "folder": "Infosys",
+  "filename": "container-with-most-water.md",
+  "content": "# 11. Container With Most Water\r\n**Difficulty:** Medium\r\n**Tags:** Array, Two Pointers, Greedy\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nYou are given an integer array \r\nheight\r\n of length \r\nn\r\n. There are \r\nn\r\n vertical lines drawn such that the two endpoints of the \r\ni\r\nth\r\n line are \r\n(i, 0)\r\n and \r\n(i, height[i])\r\n.\r\n\r\n\r\nFind two lines that together with the x-axis form a container, such that the container contains the most water.\r\n\r\n\r\nReturn \r\nthe maximum amount of water a container can store\r\n.\r\n\r\n\r\nNotice\r\n that you may not slant the container.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\n\r\n\r\nInput:\r\n height = [1,8,6,2,5,4,8,3,7]\r\n\r\nOutput:\r\n 49\r\n\r\nExplanation:\r\n The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n height = [1,1]\r\n\r\nOutput:\r\n 1\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\nn == height.length\r\n\r\n\r\n2 <= n <= 10\r\n5\r\n\r\n\r\n0 <= height[i] <= 10\r\n4\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    int maxArea(vector<int>& height) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public int maxArea(int[] height) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def maxArea(self, height: List[int]) -> int:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def maxArea(self, height):\r\n        \"\"\"\r\n        :type height: List[int]\r\n        :rtype: int\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {number[]} height\r\n * @return {number}\r\n */\r\nvar maxArea = function(height) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction maxArea(height: number[]): number {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public int MaxArea(int[] height) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\nint maxArea(int* height, int heightSize) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc maxArea(height []int) int {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun maxArea(height: IntArray): Int {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func maxArea(_ height: [Int]) -> Int {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn max_area(height: Vec<i32>) -> i32 {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {Integer[]} height\r\n# @return {Integer}\r\ndef max_area(height)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param Integer[] $height\r\n     * @return Integer\r\n     */\r\n    function maxArea($height) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  int maxArea(List<int> height) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def maxArea(height: Array[Int]): Int = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec max_area(height :: [integer]) :: integer\r\n  def max_area(height) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec max_area(Height :: [integer()]) -> integer().\r\nmax_area(Height) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (max-area height)\r\n  (-> (listof exact-integer?) exact-integer?)\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "height": [1,8,6,2,5,4,8,3,7]
+      },
+      "output": 49
+    },
+
+    {
+      "input": {
+        "height": [1,1]
+      },
+      "output": 1
+    },
+
+    {
+      "input": {
+        "height": [4,3,2,1,4]
+      },
+      "output": 16
+    },
+
+    {
+      "input": {
+        "height": [1,2,1]
+      },
+      "output": 2
+    },
+
+    {
+      "input": {
+        "height": [2,3,10,5,7,8,9]
+      },
+      "output": 36
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "height": [6,9,3,4,5,8]
+      },
+      "output": 32
+    },
+
+    {
+      "input": {
+        "height": [1,3,2,5,25,24,5]
+      },
+      "output": 24
+    }
+  ]
+}
+}

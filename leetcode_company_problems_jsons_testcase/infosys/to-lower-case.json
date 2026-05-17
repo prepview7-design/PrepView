@@ -1,0 +1,59 @@
+{
+  "folder": "Infosys",
+  "filename": "to-lower-case.md",
+  "content": "# 709. To Lower Case\r\n**Difficulty:** Easy\r\n**Tags:** String\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nGiven a string \r\ns\r\n, return \r\nthe string after replacing every uppercase letter with the same lowercase letter\r\n.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\nInput:\r\n s = \"Hello\"\r\n\r\nOutput:\r\n \"hello\"\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n s = \"here\"\r\n\r\nOutput:\r\n \"here\"\r\n\r\n\r\n\r\nExample 3:\r\n\r\n\r\n\r\n\r\nInput:\r\n s = \"LOVELY\"\r\n\r\nOutput:\r\n \"lovely\"\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\n1 <= s.length <= 100\r\n\r\n\r\ns\r\n consists of printable ASCII characters.\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    string toLowerCase(string s) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public String toLowerCase(String s) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def toLowerCase(self, s: str) -> str:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def toLowerCase(self, s):\r\n        \"\"\"\r\n        :type s: str\r\n        :rtype: str\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {string} s\r\n * @return {string}\r\n */\r\nvar toLowerCase = function(s) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction toLowerCase(s: string): string {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public string ToLowerCase(string s) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\nchar* toLowerCase(char* s) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc toLowerCase(s string) string {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun toLowerCase(s: String): String {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func toLowerCase(_ s: String) -> String {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn to_lower_case(s: String) -> String {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {String} s\r\n# @return {String}\r\ndef to_lower_case(s)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param String $s\r\n     * @return String\r\n     */\r\n    function toLowerCase($s) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  String toLowerCase(String s) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def toLowerCase(s: String): String = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec to_lower_case(s :: String.t) :: String.t\r\n  def to_lower_case(s) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec to_lower_case(S :: unicode:unicode_binary()) -> unicode:unicode_binary().\r\nto_lower_case(S) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (to-lower-case s)\r\n  (-> string? string?)\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "s": "Hello"
+      },
+      "output": "hello"
+    },
+
+    {
+      "input": {
+        "s": "here"
+      },
+      "output": "here"
+    },
+
+    {
+      "input": {
+        "s": "LOVELY"
+      },
+      "output": "lovely"
+    },
+
+    {
+      "input": {
+        "s": "JavaScript"
+      },
+      "output": "javascript"
+    },
+
+    {
+      "input": {
+        "s": "123ABCxyz"
+      },
+      "output": "123abcxyz"
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "s": "OPENAI ChatGPT"
+      },
+      "output": "openai chatgpt"
+    },
+
+    {
+      "input": {
+        "s": "TeSt_CaSe#2025"
+      },
+      "output": "test_case#2025"
+    }
+  ]
+}
+}

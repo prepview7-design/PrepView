@@ -1,0 +1,62 @@
+{
+  "folder": "tcs",
+  "filename": "valid-anagram.md",
+  "content": "# 242. Valid Anagram\r\n**Difficulty:** Easy\r\n**Tags:** Hash Table, String, Sorting\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nGiven two strings \r\ns\r\n and \r\nt\r\n, return \r\ntrue\r\n if \r\nt\r\n is an \r\nanagram\r\n of \r\ns\r\n, and \r\nfalse\r\n otherwise.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\nInput:\r\n \r\ns = \"anagram\", t = \"nagaram\"\r\n\r\n\r\nOutput:\r\n \r\ntrue\r\n\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n \r\ns = \"rat\", t = \"car\"\r\n\r\n\r\nOutput:\r\n \r\nfalse\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\n1 <= s.length, t.length <= 5 * 10\r\n4\r\n\r\n\r\ns\r\n and \r\nt\r\n consist of lowercase English letters.\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\nFollow up:\r\n What if the inputs contain Unicode characters? How would you adapt your solution to such a case?\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    bool isAnagram(string s, string t) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public boolean isAnagram(String s, String t) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def isAnagram(self, s: str, t: str) -> bool:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def isAnagram(self, s, t):\r\n        \"\"\"\r\n        :type s: str\r\n        :type t: str\r\n        :rtype: bool\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {string} s\r\n * @param {string} t\r\n * @return {boolean}\r\n */\r\nvar isAnagram = function(s, t) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction isAnagram(s: string, t: string): boolean {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public bool IsAnagram(string s, string t) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\nbool isAnagram(char* s, char* t) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc isAnagram(s string, t string) bool {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun isAnagram(s: String, t: String): Boolean {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func isAnagram(_ s: String, _ t: String) -> Bool {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn is_anagram(s: String, t: String) -> bool {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {String} s\r\n# @param {String} t\r\n# @return {Boolean}\r\ndef is_anagram(s, t)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param String $s\r\n     * @param String $t\r\n     * @return Boolean\r\n     */\r\n    function isAnagram($s, $t) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  bool isAnagram(String s, String t) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def isAnagram(s: String, t: String): Boolean = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec is_anagram(s :: String.t, t :: String.t) :: boolean\r\n  def is_anagram(s, t) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec is_anagram(S :: unicode:unicode_binary(), T :: unicode:unicode_binary()) -> boolean().\r\nis_anagram(S, T) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (is-anagram s t)\r\n  (-> string? string? boolean?)\r\n  )\r\n```",
+  {
+  "test_cases": {
+    "public": [
+      {
+        "input": {
+          "s": "anagram",
+          "t": "nagaram"
+        },
+        "output": true
+      },
+      {
+        "input": {
+          "s": "rat",
+          "t": "car"
+        },
+        "output": false
+      },
+      {
+        "input": {
+          "s": "listen",
+          "t": "silent"
+        },
+        "output": true
+      },
+      {
+        "input": {
+          "s": "hello",
+          "t": "bello"
+        },
+        "output": false
+      },
+      {
+        "input": {
+          "s": "aacc",
+          "t": "ccac"
+        },
+        "output": false
+      }
+    ],
+    "private": [
+      {
+        "input": {
+          "s": "abcdefghijklmnopqrstuvwxyz",
+          "t": "zyxwvutsrqponmlkjihgfedcba"
+        },
+        "output": true
+      },
+      {
+        "input": {
+          "s": "aaabbbcccddd",
+          "t": "aaabbbcccddc"
+        },
+        "output": false
+      }
+    ]
+  }
+}
+}

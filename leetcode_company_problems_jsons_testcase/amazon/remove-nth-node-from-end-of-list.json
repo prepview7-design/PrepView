@@ -1,0 +1,66 @@
+{
+  "folder": "Amazon",
+  "filename": "remove-nth-node-from-end-of-list.md",
+  "content": "# 19. Remove Nth Node From End of List\r\n**Difficulty:** Medium\r\n**Tags:** Linked List, Two Pointers\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nGiven the \r\nhead\r\n of a linked list, remove the \r\nn\r\nth\r\n node from the end of the list and return its head.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\n\r\n\r\nInput:\r\n head = [1,2,3,4,5], n = 2\r\n\r\nOutput:\r\n [1,2,3,5]\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n head = [1], n = 1\r\n\r\nOutput:\r\n []\r\n\r\n\r\n\r\nExample 3:\r\n\r\n\r\n\r\n\r\nInput:\r\n head = [1,2], n = 1\r\n\r\nOutput:\r\n [1]\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\nThe number of nodes in the list is \r\nsz\r\n.\r\n\r\n\r\n1 <= sz <= 30\r\n\r\n\r\n0 <= Node.val <= 100\r\n\r\n\r\n1 <= n <= sz\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\nFollow up:\r\n Could you do this in one pass?\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     ListNode *next;\r\n *     ListNode() : val(0), next(nullptr) {}\r\n *     ListNode(int x) : val(x), next(nullptr) {}\r\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\r\n * };\r\n */\r\nclass Solution {\r\npublic:\r\n    ListNode* removeNthFromEnd(ListNode* head, int n) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     int val;\r\n *     ListNode next;\r\n *     ListNode() {}\r\n *     ListNode(int val) { this.val = val; }\r\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    public ListNode removeNthFromEnd(ListNode head, int n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\n# Definition for singly-linked list.\r\n# class ListNode:\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution:\r\n    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\n# Definition for singly-linked list.\r\n# class ListNode(object):\r\n#     def __init__(self, val=0, next=None):\r\n#         self.val = val\r\n#         self.next = next\r\nclass Solution(object):\r\n    def removeNthFromEnd(self, head, n):\r\n        \"\"\"\r\n        :type head: Optional[ListNode]\r\n        :type n: int\r\n        :rtype: Optional[ListNode]\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * function ListNode(val, next) {\r\n *     this.val = (val===undefined ? 0 : val)\r\n *     this.next = (next===undefined ? null : next)\r\n * }\r\n */\r\n/**\r\n * @param {ListNode} head\r\n * @param {number} n\r\n * @return {ListNode}\r\n */\r\nvar removeNthFromEnd = function(head, n) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * class ListNode {\r\n *     val: number\r\n *     next: ListNode | null\r\n *     constructor(val?: number, next?: ListNode | null) {\r\n *         this.val = (val===undefined ? 0 : val)\r\n *         this.next = (next===undefined ? null : next)\r\n *     }\r\n * }\r\n */\r\n\r\nfunction removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     public int val;\r\n *     public ListNode next;\r\n *     public ListNode(int val=0, ListNode next=null) {\r\n *         this.val = val;\r\n *         this.next = next;\r\n *     }\r\n * }\r\n */\r\npublic class Solution {\r\n    public ListNode RemoveNthFromEnd(ListNode head, int n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * struct ListNode {\r\n *     int val;\r\n *     struct ListNode *next;\r\n * };\r\n */\r\nstruct ListNode* removeNthFromEnd(struct ListNode* head, int n) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * type ListNode struct {\r\n *     Val int\r\n *     Next *ListNode\r\n * }\r\n */\r\nfunc removeNthFromEnd(head *ListNode, n int) *ListNode {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\n/**\r\n * Example:\r\n * var li = ListNode(5)\r\n * var v = li.`val`\r\n * Definition for singly-linked list.\r\n * class ListNode(var `val`: Int) {\r\n *     var next: ListNode? = null\r\n * }\r\n */\r\nclass Solution {\r\n    fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * public class ListNode {\r\n *     public var val: Int\r\n *     public var next: ListNode?\r\n *     public init() { self.val = 0; self.next = nil; }\r\n *     public init(_ val: Int) { self.val = val; self.next = nil; }\r\n *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }\r\n * }\r\n */\r\nclass Solution {\r\n    func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\n// Definition for singly-linked list.\r\n// #[derive(PartialEq, Eq, Clone, Debug)]\r\n// pub struct ListNode {\r\n//   pub val: i32,\r\n//   pub next: Option<Box<ListNode>>\r\n// }\r\n// \r\n// impl ListNode {\r\n//   #[inline]\r\n//   fn new(val: i32) -> Self {\r\n//     ListNode {\r\n//       next: None,\r\n//       val\r\n//     }\r\n//   }\r\n// }\r\nimpl Solution {\r\n    pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# Definition for singly-linked list.\r\n# class ListNode\r\n#     attr_accessor :val, :next\r\n#     def initialize(val = 0, _next = nil)\r\n#         @val = val\r\n#         @next = _next\r\n#     end\r\n# end\r\n# @param {ListNode} head\r\n# @param {Integer} n\r\n# @return {ListNode}\r\ndef remove_nth_from_end(head, n)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\n/**\r\n * Definition for a singly-linked list.\r\n * class ListNode {\r\n *     public $val = 0;\r\n *     public $next = null;\r\n *     function __construct($val = 0, $next = null) {\r\n *         $this->val = $val;\r\n *         $this->next = $next;\r\n *     }\r\n * }\r\n */\r\nclass Solution {\r\n\r\n    /**\r\n     * @param ListNode $head\r\n     * @param Integer $n\r\n     * @return ListNode\r\n     */\r\n    function removeNthFromEnd($head, $n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * class ListNode {\r\n *   int val;\r\n *   ListNode? next;\r\n *   ListNode([this.val = 0, this.next]);\r\n * }\r\n */\r\nclass Solution {\r\n  ListNode? removeNthFromEnd(ListNode? head, int n) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\n/**\r\n * Definition for singly-linked list.\r\n * class ListNode(_x: Int = 0, _next: ListNode = null) {\r\n *   var next: ListNode = _next\r\n *   var x: Int = _x\r\n * }\r\n */\r\nobject Solution {\r\n    def removeNthFromEnd(head: ListNode, n: Int): ListNode = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\n# Definition for singly-linked list.\r\n#\r\n# defmodule ListNode do\r\n#   @type t :: %__MODULE__{\r\n#           val: integer,\r\n#           next: ListNode.t() | nil\r\n#         }\r\n#   defstruct val: 0, next: nil\r\n# end\r\n\r\ndefmodule Solution do\r\n  @spec remove_nth_from_end(head :: ListNode.t | nil, n :: integer) :: ListNode.t | nil\r\n  def remove_nth_from_end(head, n) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n%% Definition for singly-linked list.\r\n%%\r\n%% -record(list_node, {val = 0 :: integer(),\r\n%%                     next = null :: 'null' | #list_node{}}).\r\n\r\n-spec remove_nth_from_end(Head :: #list_node{} | null, N :: integer()) -> #list_node{} | null.\r\nremove_nth_from_end(Head, N) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n; Definition for singly-linked list:\r\n#|\r\n\r\n; val : integer?\r\n; next : (or/c list-node? #f)\r\n(struct list-node\r\n  (val next) #:mutable #:transparent)\r\n\r\n; constructor\r\n(define (make-list-node [val 0])\r\n  (list-node val #f))\r\n\r\n|#\r\n\r\n(define/contract (remove-nth-from-end head n)\r\n  (-> (or/c list-node? #f) exact-integer? (or/c list-node? #f))\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "head": [1,2,3,4,5],
+        "n": 2
+      },
+      "output": [1,2,3,5]
+    },
+
+    {
+      "input": {
+        "head": [1],
+        "n": 1
+      },
+      "output": []
+    },
+
+    {
+      "input": {
+        "head": [1,2],
+        "n": 1
+      },
+      "output": [1]
+    },
+
+    {
+      "input": {
+        "head": [1,2,3],
+        "n": 3
+      },
+      "output": [2,3]
+    },
+
+    {
+      "input": {
+        "head": [10,20,30,40],
+        "n": 2
+      },
+      "output": [10,20,40]
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "head": [5,6,7,8,9],
+        "n": 5
+      },
+      "output": [6,7,8,9]
+    },
+
+    {
+      "input": {
+        "head": [1,2,3,4,5,6],
+        "n": 3
+      },
+      "output": [1,2,3,5,6]
+    }
+  ]
+}
+}

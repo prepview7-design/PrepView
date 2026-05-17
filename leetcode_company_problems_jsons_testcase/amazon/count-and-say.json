@@ -1,0 +1,59 @@
+{
+  "folder": "Amazon",
+  "filename": "count-and-say.md",
+  "content": "# 38. Count and Say\r\n**Difficulty:** Medium\r\n**Tags:** String\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nThe \r\ncount-and-say\r\n sequence is a sequence of digit strings defined by the recursive formula:\r\n\r\n\r\n\r\n\r\ncountAndSay(1) = \"1\"\r\n\r\n\r\ncountAndSay(n)\r\n is the run-length encoding of \r\ncountAndSay(n - 1)\r\n.\r\n\r\n\r\n\r\n\r\nRun-length encoding\r\n (RLE) is a string compression method that works by replacing consecutive identical characters (repeated 2 or more times) with the concatenation of the character and the number marking the count of the characters (length of the run). For example, to compress the string \r\n\"3322251\"\r\n we replace \r\n\"33\"\r\n with \r\n\"23\"\r\n, replace \r\n\"222\"\r\n with \r\n\"32\"\r\n, replace \r\n\"5\"\r\n with \r\n\"15\"\r\n and replace \r\n\"1\"\r\n with \r\n\"11\"\r\n. Thus the compressed string becomes \r\n\"23321511\"\r\n.\r\n\r\n\r\nGiven a positive integer \r\nn\r\n, return \r\nthe \r\nn\r\nth\r\n element of the \r\ncount-and-say\r\n sequence\r\n.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\nInput:\r\n \r\nn = 4\r\n\r\n\r\nOutput:\r\n \r\n\"1211\"\r\n\r\n\r\nExplanation:\r\n\r\n\r\n\r\ncountAndSay(1) = \"1\"\r\ncountAndSay(2) = RLE of \"1\" = \"11\"\r\ncountAndSay(3) = RLE of \"11\" = \"21\"\r\ncountAndSay(4) = RLE of \"21\" = \"1211\"\r\n\r\n\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n \r\nn = 1\r\n\r\n\r\nOutput:\r\n \r\n\"1\"\r\n\r\n\r\nExplanation:\r\n\r\n\r\nThis is the base case.\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\n1 <= n <= 30\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\nFollow up:\r\n Could you solve it iteratively?\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    string countAndSay(int n) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public String countAndSay(int n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def countAndSay(self, n: int) -> str:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def countAndSay(self, n):\r\n        \"\"\"\r\n        :type n: int\r\n        :rtype: str\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {number} n\r\n * @return {string}\r\n */\r\nvar countAndSay = function(n) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction countAndSay(n: number): string {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public string CountAndSay(int n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\nchar* countAndSay(int n) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc countAndSay(n int) string {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun countAndSay(n: Int): String {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func countAndSay(_ n: Int) -> String {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn count_and_say(n: i32) -> String {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {Integer} n\r\n# @return {String}\r\ndef count_and_say(n)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param Integer $n\r\n     * @return String\r\n     */\r\n    function countAndSay($n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  String countAndSay(int n) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def countAndSay(n: Int): String = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec count_and_say(n :: integer) :: String.t\r\n  def count_and_say(n) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec count_and_say(N :: integer()) -> unicode:unicode_binary().\r\ncount_and_say(N) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (count-and-say n)\r\n  (-> exact-integer? string?)\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "n": 1
+      },
+      "output": "1"
+    },
+
+    {
+      "input": {
+        "n": 2
+      },
+      "output": "11"
+    },
+
+    {
+      "input": {
+        "n": 3
+      },
+      "output": "21"
+    },
+
+    {
+      "input": {
+        "n": 4
+      },
+      "output": "1211"
+    },
+
+    {
+      "input": {
+        "n": 5
+      },
+      "output": "111221"
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "n": 6
+      },
+      "output": "312211"
+    },
+
+    {
+      "input": {
+        "n": 7
+      },
+      "output": "13112221"
+    }
+  ]
+}
+}

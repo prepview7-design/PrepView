@@ -1,0 +1,71 @@
+{
+  "folder": "Amazon",
+  "filename": "n-queens.md",
+  "content": "# 51. N-Queens\r\n**Difficulty:** Hard\r\n**Tags:** Array, Backtracking\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nThe \r\nn-queens\r\n puzzle is the problem of placing \r\nn\r\n queens on an \r\nn x n\r\n chessboard such that no two queens attack each other.\r\n\r\n\r\nGiven an integer \r\nn\r\n, return \r\nall distinct solutions to the \r\nn-queens puzzle\r\n. You may return the answer in \r\nany order\r\n.\r\n\r\n\r\nEach solution contains a distinct board configuration of the n-queens' placement, where \r\n'Q'\r\n and \r\n'.'\r\n both indicate a queen and an empty space, respectively.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\n\r\n\r\nInput:\r\n n = 4\r\n\r\nOutput:\r\n [[\".Q..\",\"...Q\",\"Q...\",\"..Q.\"],[\"..Q.\",\"Q...\",\"...Q\",\".Q..\"]]\r\n\r\nExplanation:\r\n There exist two distinct solutions to the 4-queens puzzle as shown above\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n n = 1\r\n\r\nOutput:\r\n [[\"Q\"]]\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\n1 <= n <= 9\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    vector<vector<string>> solveNQueens(int n) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public List<List<String>> solveNQueens(int n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def solveNQueens(self, n: int) -> List[List[str]]:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def solveNQueens(self, n):\r\n        \"\"\"\r\n        :type n: int\r\n        :rtype: List[List[str]]\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {number} n\r\n * @return {string[][]}\r\n */\r\nvar solveNQueens = function(n) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction solveNQueens(n: number): string[][] {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public IList<IList<string>> SolveNQueens(int n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\n/**\r\n * Return an array of arrays of size *returnSize.\r\n * The sizes of the arrays are returned as *returnColumnSizes array.\r\n * Note: Both returned array and *columnSizes array must be malloced, assume caller calls free().\r\n */\r\nchar*** solveNQueens(int n, int* returnSize, int** returnColumnSizes) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc solveNQueens(n int) [][]string {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun solveNQueens(n: Int): List<List<String>> {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func solveNQueens(_ n: Int) -> [[String]] {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn solve_n_queens(n: i32) -> Vec<Vec<String>> {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {Integer} n\r\n# @return {String[][]}\r\ndef solve_n_queens(n)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param Integer $n\r\n     * @return String[][]\r\n     */\r\n    function solveNQueens($n) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  List<List<String>> solveNQueens(int n) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def solveNQueens(n: Int): List[List[String]] = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec solve_n_queens(n :: integer) :: [[String.t]]\r\n  def solve_n_queens(n) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec solve_n_queens(N :: integer()) -> [[unicode:unicode_binary()]].\r\nsolve_n_queens(N) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (solve-n-queens n)\r\n  (-> exact-integer? (listof (listof string?)))\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "n": 1
+      },
+      "output": [["Q"]]
+    },
+
+    {
+      "input": {
+        "n": 2
+      },
+      "output": []
+    },
+
+    {
+      "input": {
+        "n": 3
+      },
+      "output": []
+    },
+
+    {
+      "input": {
+        "n": 4
+      },
+      "output": [
+        [".Q..","...Q","Q...","..Q."],
+        ["..Q.","Q...","...Q",".Q.."]
+      ]
+    },
+
+    {
+      "input": {
+        "n": 5
+      },
+      "output": [
+        ["Q....","..Q..","....Q",".Q...","...Q."],
+        ["Q....","...Q.",".Q...","....Q","..Q.."]
+      ]
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "n": 6
+      },
+      "output": [
+        [".Q....","...Q..",".....Q","Q.....","..Q...","....Q."],
+        ["..Q...",".....Q",".Q....","....Q.","Q.....","...Q.."]
+      ]
+    },
+
+    {
+      "input": {
+        "n": 7
+      },
+      "output": [
+        ["Q......","..Q....","....Q..","......Q.",".Q.....","...Q...",".....Q."],
+        [".Q.....","...Q...","Q......","......Q.","....Q..","..Q....",".....Q."]
+      ]
+    }
+  ]
+}
+}

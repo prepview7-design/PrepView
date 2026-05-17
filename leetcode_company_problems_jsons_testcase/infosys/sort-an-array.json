@@ -1,0 +1,59 @@
+{
+  "folder": "Infosys",
+  "filename": "sort-an-array.md",
+  "content": "# 912. Sort an Array\r\n**Difficulty:** Medium\r\n**Tags:** Array, Divide and Conquer, Sorting, Heap (Priority Queue), Merge Sort, Bucket Sort, Radix Sort, Counting Sort\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nGiven an array of integers \r\nnums\r\n, sort the array in ascending order and return it.\r\n\r\n\r\nYou must solve the problem \r\nwithout using any built-in\r\n functions in \r\nO(nlog(n))\r\n time complexity and with the smallest space complexity possible.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\nInput:\r\n nums = [5,2,3,1]\r\n\r\nOutput:\r\n [1,2,3,5]\r\n\r\nExplanation:\r\n After sorting the array, the positions of some numbers are not changed (for example, 2 and 3), while the positions of other numbers are changed (for example, 1 and 5).\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n nums = [5,1,1,2,0,0]\r\n\r\nOutput:\r\n [0,0,1,1,2,5]\r\n\r\nExplanation:\r\n Note that the values of nums are not necessarily unique.\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\n1 <= nums.length <= 5 * 10\r\n4\r\n\r\n\r\n-5 * 10\r\n4\r\n <= nums[i] <= 5 * 10\r\n4\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    vector<int> sortArray(vector<int>& nums) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public int[] sortArray(int[] nums) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def sortArray(self, nums: List[int]) -> List[int]:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def sortArray(self, nums):\r\n        \"\"\"\r\n        :type nums: List[int]\r\n        :rtype: List[int]\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {number[]} nums\r\n * @return {number[]}\r\n */\r\nvar sortArray = function(nums) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction sortArray(nums: number[]): number[] {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public int[] SortArray(int[] nums) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\n/**\r\n * Note: The returned array must be malloced, assume caller calls free().\r\n */\r\nint* sortArray(int* nums, int numsSize, int* returnSize) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc sortArray(nums []int) []int {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun sortArray(nums: IntArray): IntArray {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func sortArray(_ nums: [Int]) -> [Int] {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn sort_array(nums: Vec<i32>) -> Vec<i32> {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {Integer[]} nums\r\n# @return {Integer[]}\r\ndef sort_array(nums)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param Integer[] $nums\r\n     * @return Integer[]\r\n     */\r\n    function sortArray($nums) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  List<int> sortArray(List<int> nums) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def sortArray(nums: Array[Int]): Array[Int] = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec sort_array(nums :: [integer]) :: [integer]\r\n  def sort_array(nums) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec sort_array(Nums :: [integer()]) -> [integer()].\r\nsort_array(Nums) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (sort-array nums)\r\n  (-> (listof exact-integer?) (listof exact-integer?))\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "nums": [5,2,3,1]
+      },
+      "output": [1,2,3,5]
+    },
+
+    {
+      "input": {
+        "nums": [5,1,1,2,0,0]
+      },
+      "output": [0,0,1,1,2,5]
+    },
+
+    {
+      "input": {
+        "nums": [1]
+      },
+      "output": [1]
+    },
+
+    {
+      "input": {
+        "nums": [-3,-1,-2,-5,-4]
+      },
+      "output": [-5,-4,-3,-2,-1]
+    },
+
+    {
+      "input": {
+        "nums": [10,9,8,7,6]
+      },
+      "output": [6,7,8,9,10]
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "nums": [1000,-1000,500,0,-500]
+      },
+      "output": [-1000,-500,0,500,1000]
+    },
+
+    {
+      "input": {
+        "nums": [3,3,2,1,2,4,5,5]
+      },
+      "output": [1,2,2,3,3,4,5,5]
+    }
+  ]
+}
+}

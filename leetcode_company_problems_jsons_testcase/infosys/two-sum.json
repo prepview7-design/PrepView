@@ -1,0 +1,66 @@
+{
+  "folder": "Infosys",
+  "filename": "two-sum.md",
+  "content": "# 1. Two Sum\r\n**Difficulty:** Easy\r\n**Tags:** Array, Hash Table\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nGiven an array of integers \r\nnums\r\n and an integer \r\ntarget\r\n, return \r\nindices of the two numbers such that they add up to \r\ntarget\r\n.\r\n\r\n\r\nYou may assume that each input would have \r\nexactly\r\n one solution\r\n, and you may not use the \r\nsame\r\n element twice.\r\n\r\n\r\nYou can return the answer in any order.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\nInput:\r\n nums = [2,7,11,15], target = 9\r\n\r\nOutput:\r\n [0,1]\r\n\r\nExplanation:\r\n Because nums[0] + nums[1] == 9, we return [0, 1].\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n nums = [3,2,4], target = 6\r\n\r\nOutput:\r\n [1,2]\r\n\r\n\r\n\r\nExample 3:\r\n\r\n\r\n\r\n\r\nInput:\r\n nums = [3,3], target = 6\r\n\r\nOutput:\r\n [0,1]\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\n2 <= nums.length <= 10\r\n4\r\n\r\n\r\n-10\r\n9\r\n <= nums[i] <= 10\r\n9\r\n\r\n\r\n-10\r\n9\r\n <= target <= 10\r\n9\r\n\r\n\r\nOnly one valid answer exists.\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\nFollow-up: \r\nCan you come up with an algorithm that is less than \r\nO(n\r\n2\r\n)\r\n \r\ntime complexity?\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    vector<int> twoSum(vector<int>& nums, int target) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public int[] twoSum(int[] nums, int target) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def twoSum(self, nums, target):\r\n        \"\"\"\r\n        :type nums: List[int]\r\n        :type target: int\r\n        :rtype: List[int]\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {number[]} nums\r\n * @param {number} target\r\n * @return {number[]}\r\n */\r\nvar twoSum = function(nums, target) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction twoSum(nums: number[], target: number): number[] {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public int[] TwoSum(int[] nums, int target) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\n/**\r\n * Note: The returned array must be malloced, assume caller calls free().\r\n */\r\nint* twoSum(int* nums, int numsSize, int target, int* returnSize) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc twoSum(nums []int, target int) []int {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun twoSum(nums: IntArray, target: Int): IntArray {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func twoSum(_ nums: [Int], _ target: Int) -> [Int] {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {Integer[]} nums\r\n# @param {Integer} target\r\n# @return {Integer[]}\r\ndef two_sum(nums, target)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param Integer[] $nums\r\n     * @param Integer $target\r\n     * @return Integer[]\r\n     */\r\n    function twoSum($nums, $target) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  List<int> twoSum(List<int> nums, int target) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def twoSum(nums: Array[Int], target: Int): Array[Int] = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec two_sum(nums :: [integer], target :: integer) :: [integer]\r\n  def two_sum(nums, target) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec two_sum(Nums :: [integer()], Target :: integer()) -> [integer()].\r\ntwo_sum(Nums, Target) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (two-sum nums target)\r\n  (-> (listof exact-integer?) exact-integer? (listof exact-integer?))\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "nums": [2,7,11,15],
+        "target": 9
+      },
+      "output": [0,1]
+    },
+
+    {
+      "input": {
+        "nums": [3,2,4],
+        "target": 6
+      },
+      "output": [1,2]
+    },
+
+    {
+      "input": {
+        "nums": [3,3],
+        "target": 6
+      },
+      "output": [0,1]
+    },
+
+    {
+      "input": {
+        "nums": [1,5,8,10],
+        "target": 13
+      },
+      "output": [1,2]
+    },
+
+    {
+      "input": {
+        "nums": [-1,-2,-3,-4,-5],
+        "target": -8
+      },
+      "output": [2,4]
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "nums": [0,4,3,0],
+        "target": 0
+      },
+      "output": [0,3]
+    },
+
+    {
+      "input": {
+        "nums": [1000000,-1000000,500000],
+        "target": 0
+      },
+      "output": [0,1]
+    }
+  ]
+}
+}

@@ -1,0 +1,59 @@
+{
+  "folder": "tcs",
+  "filename": "count-the-digits-that-divide-a-number.md",
+  "content": "# 2520. Count the Digits That Divide a Number\r\n**Difficulty:** Easy\r\n**Tags:** Math\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nGiven an integer \r\nnum\r\n, return \r\nthe number of digits in \r\nnum\r\n that divide \r\nnum\r\n.\r\n\r\n\r\nAn integer \r\nval\r\n divides \r\nnums\r\n if \r\nnums % val == 0\r\n.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\nInput:\r\n num = 7\r\n\r\nOutput:\r\n 1\r\n\r\nExplanation:\r\n 7 divides itself, hence the answer is 1.\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n num = 121\r\n\r\nOutput:\r\n 2\r\n\r\nExplanation:\r\n 121 is divisible by 1, but not 2. Since 1 occurs twice as a digit, we return 2.\r\n\r\n\r\n\r\nExample 3:\r\n\r\n\r\n\r\n\r\nInput:\r\n num = 1248\r\n\r\nOutput:\r\n 4\r\n\r\nExplanation:\r\n 1248 is divisible by all of its digits, hence the answer is 4.\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\n1 <= num <= 10\r\n9\r\n\r\n\r\nnum\r\n does not contain \r\n0\r\n as one of its digits.\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    int countDigits(int num) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public int countDigits(int num) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def countDigits(self, num: int) -> int:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def countDigits(self, num):\r\n        \"\"\"\r\n        :type num: int\r\n        :rtype: int\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {number} num\r\n * @return {number}\r\n */\r\nvar countDigits = function(num) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction countDigits(num: number): number {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public int CountDigits(int num) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\nint countDigits(int num) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc countDigits(num int) int {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun countDigits(num: Int): Int {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func countDigits(_ num: Int) -> Int {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn count_digits(num: i32) -> i32 {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {Integer} num\r\n# @return {Integer}\r\ndef count_digits(num)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param Integer $num\r\n     * @return Integer\r\n     */\r\n    function countDigits($num) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  int countDigits(int num) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def countDigits(num: Int): Int = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec count_digits(num :: integer) :: integer\r\n  def count_digits(num) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec count_digits(Num :: integer()) -> integer().\r\ncount_digits(Num) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (count-digits num)\r\n  (-> exact-integer? exact-integer?)\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "num": 7
+      },
+      "output": 1
+    },
+
+    {
+      "input": {
+        "num": 121
+      },
+      "output": 2
+    },
+
+    {
+      "input": {
+        "num": 1248
+      },
+      "output": 4
+    },
+
+    {
+      "input": {
+        "num": 22
+      },
+      "output": 2
+    },
+
+    {
+      "input": {
+        "num": 36
+      },
+      "output": 2
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "num": 999
+      },
+      "output": 3
+    },
+
+    {
+      "input": {
+        "num": 128
+      },
+      "output": 3
+    }
+  ]
+}
+}

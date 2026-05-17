@@ -1,0 +1,66 @@
+{
+  "folder": "Amazon",
+  "filename": "divide-two-integers.md",
+  "content": "# 29. Divide Two Integers\r\n**Difficulty:** Medium\r\n**Tags:** Math, Bit Manipulation\r\n\r\n---\r\n\r\n## 📘 Problem Statement\r\nGiven two integers \r\ndividend\r\n and \r\ndivisor\r\n, divide two integers \r\nwithout\r\n using multiplication, division, and mod operator.\r\n\r\n\r\nThe integer division should truncate toward zero, which means losing its fractional part. For example, \r\n8.345\r\n would be truncated to \r\n8\r\n, and \r\n-2.7335\r\n would be truncated to \r\n-2\r\n.\r\n\r\n\r\nReturn \r\nthe \r\nquotient\r\n after dividing \r\ndividend\r\n by \r\ndivisor\r\n.\r\n\r\n\r\nNote: \r\nAssume we are dealing with an environment that could only store integers within the \r\n32-bit\r\n signed integer range: \r\n[−2\r\n31\r\n, 2\r\n31\r\n − 1]\r\n. For this problem, if the quotient is \r\nstrictly greater than\r\n \r\n2\r\n31\r\n - 1\r\n, then return \r\n2\r\n31\r\n - 1\r\n, and if the quotient is \r\nstrictly less than\r\n \r\n-2\r\n31\r\n, then return \r\n-2\r\n31\r\n.\r\n\r\n\r\n \r\n\r\n\r\nExample 1:\r\n\r\n\r\n\r\n\r\nInput:\r\n dividend = 10, divisor = 3\r\n\r\nOutput:\r\n 3\r\n\r\nExplanation:\r\n 10/3 = 3.33333.. which is truncated to 3.\r\n\r\n\r\n\r\nExample 2:\r\n\r\n\r\n\r\n\r\nInput:\r\n dividend = 7, divisor = -3\r\n\r\nOutput:\r\n -2\r\n\r\nExplanation:\r\n 7/-3 = -2.33333.. which is truncated to -2.\r\n\r\n\r\n\r\n \r\n\r\n\r\nConstraints:\r\n\r\n\r\n\r\n\r\n-2\r\n31\r\n <= dividend, divisor <= 2\r\n31\r\n - 1\r\n\r\n\r\ndivisor != 0\r\n\r\n---\r\n\r\n## 💻 Solutions Snippets\r\n\r\n### C++\r\n```\r\nclass Solution {\r\npublic:\r\n    int divide(int dividend, int divisor) {\r\n        \r\n    }\r\n};\r\n```\r\n\r\n### Java\r\n```\r\nclass Solution {\r\n    public int divide(int dividend, int divisor) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Python3\r\n```\r\nclass Solution:\r\n    def divide(self, dividend: int, divisor: int) -> int:\r\n        \r\n```\r\n\r\n### Python\r\n```\r\nclass Solution(object):\r\n    def divide(self, dividend, divisor):\r\n        \"\"\"\r\n        :type dividend: int\r\n        :type divisor: int\r\n        :rtype: int\r\n        \"\"\"\r\n        \r\n```\r\n\r\n### JavaScript\r\n```\r\n/**\r\n * @param {number} dividend\r\n * @param {number} divisor\r\n * @return {number}\r\n */\r\nvar divide = function(dividend, divisor) {\r\n    \r\n};\r\n```\r\n\r\n### TypeScript\r\n```\r\nfunction divide(dividend: number, divisor: number): number {\r\n    \r\n};\r\n```\r\n\r\n### C#\r\n```\r\npublic class Solution {\r\n    public int Divide(int dividend, int divisor) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### C\r\n```\r\nint divide(int dividend, int divisor) {\r\n    \r\n}\r\n```\r\n\r\n### Go\r\n```\r\nfunc divide(dividend int, divisor int) int {\r\n    \r\n}\r\n```\r\n\r\n### Kotlin\r\n```\r\nclass Solution {\r\n    fun divide(dividend: Int, divisor: Int): Int {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Swift\r\n```\r\nclass Solution {\r\n    func divide(_ dividend: Int, _ divisor: Int) -> Int {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Rust\r\n```\r\nimpl Solution {\r\n    pub fn divide(dividend: i32, divisor: i32) -> i32 {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Ruby\r\n```\r\n# @param {Integer} dividend\r\n# @param {Integer} divisor\r\n# @return {Integer}\r\ndef divide(dividend, divisor)\r\n    \r\nend\r\n```\r\n\r\n### PHP\r\n```\r\nclass Solution {\r\n\r\n    /**\r\n     * @param Integer $dividend\r\n     * @param Integer $divisor\r\n     * @return Integer\r\n     */\r\n    function divide($dividend, $divisor) {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Dart\r\n```\r\nclass Solution {\r\n  int divide(int dividend, int divisor) {\r\n    \r\n  }\r\n}\r\n```\r\n\r\n### Scala\r\n```\r\nobject Solution {\r\n    def divide(dividend: Int, divisor: Int): Int = {\r\n        \r\n    }\r\n}\r\n```\r\n\r\n### Elixir\r\n```\r\ndefmodule Solution do\r\n  @spec divide(dividend :: integer, divisor :: integer) :: integer\r\n  def divide(dividend, divisor) do\r\n    \r\n  end\r\nend\r\n```\r\n\r\n### Erlang\r\n```\r\n-spec divide(Dividend :: integer(), Divisor :: integer()) -> integer().\r\ndivide(Dividend, Divisor) ->\r\n  .\r\n```\r\n\r\n### Racket\r\n```\r\n(define/contract (divide dividend divisor)\r\n  (-> exact-integer? exact-integer? exact-integer?)\r\n  )\r\n```",
+  "test_cases": {
+  "public": [
+    {
+      "input": {
+        "dividend": 10,
+        "divisor": 3
+      },
+      "output": 3
+    },
+
+    {
+      "input": {
+        "dividend": 7,
+        "divisor": -3
+      },
+      "output": -2
+    },
+
+    {
+      "input": {
+        "dividend": 0,
+        "divisor": 1
+      },
+      "output": 0
+    },
+
+    {
+      "input": {
+        "dividend": 1,
+        "divisor": 1
+      },
+      "output": 1
+    },
+
+    {
+      "input": {
+        "dividend": -15,
+        "divisor": 2
+      },
+      "output": -7
+    }
+  ],
+
+  "private": [
+    {
+      "input": {
+        "dividend": -2147483648,
+        "divisor": -1
+      },
+      "output": 2147483647
+    },
+
+    {
+      "input": {
+        "dividend": -2147483648,
+        "divisor": 2
+      },
+      "output": -1073741824
+    }
+  ]
+}
+}
