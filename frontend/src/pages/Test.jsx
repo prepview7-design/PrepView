@@ -14,6 +14,7 @@ import {
   BarChart2,
 } from 'lucide-react';
 import Compiler from '../components/Compiler';
+import { useAntiCheat } from '../hooks/useAntiCheat';
 
 /* ─── Helpers ──────────────────────────────────────────────────────────────── */
 
@@ -379,10 +380,13 @@ export default function Test() {
     });
   }, [currentQ, questions]);
 
-  const handleFinish = () => {
+  const handleFinish = useCallback(() => {
     clearInterval(timerRef.current);
     setPhase('result');
-  };
+  }, []);
+
+  const isTestActive = phase === 'test';
+  useAntiCheat(isTestActive, handleFinish);
 
   if (phase === 'select' || phase === 'loading') {
     return (
