@@ -39,28 +39,31 @@ This document maps the specific tasks and features in the AI Aptitude Test appli
 **Task:** Displaying the interactive test, countdown timer, and results dashboard.
 * **Library:** `streamlit`
 * **Why:** Streamlit allows us to build complex, interactive data-driven web applications using pure Python, without needing to write complex React/Vue frontend code. It handles the session state, user inputs (dropdowns, radio buttons), and UI rendering.
-=======
-# PrepView
->>>>>>> 6e2f81c734c8172a36ae535e5a4666172f9bea9e
 
+## 7. Commands to Run the Website 
 
-In Order to Run the backend
+**In Order to Run the backend**
  -> cd backend
  -> node server.js
 
- In Order to Run the Frontend
+ **In Order to Run the Frontend**
  -> cd frontend
  -> npm run dev
 
- In Order to Run Apti Round
+ **In Order to Run Apti Round**
  -> cd appti_round
  -> uvicorn backend.main:app --host 0.0.0.0 --port 8001 --reload
 
- In Order to Run Compiler
+ **In Order to Run Compiler**
  -> cd compiler
  -> cd app
  -> cd uvicorn main:app --reload
 
- In Order to Run Avatar_Interview
- -> cd avatar_interview
- ->  uvicorn backend.main:app --host 0.0.0.0 --port 8002 --reload
+ **In Order to Run Avatar_Interview**
+ *-> cd avatar_interview*
+ *->  uvicorn backend.main:app --host 0.0.0.0 --port 8002 --reload*
+
+=======
+# PrepView
+>>>>>>> 6e2f81c734c8172a36ae535e5a4666172f9bea9e
+
