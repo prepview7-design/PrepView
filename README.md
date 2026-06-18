@@ -42,3 +42,25 @@ This document maps the specific tasks and features in the AI Aptitude Test appli
 =======
 # PrepView
 >>>>>>> 6e2f81c734c8172a36ae535e5a4666172f9bea9e
+
+
+In Order to Run the backend
+ -> cd backend
+ -> node server.js
+
+ In Order to Run the Frontend
+ -> cd frontend
+ -> npm run dev
+
+ In Order to Run Apti Round
+ -> cd appti_round
+ -> uvicorn backend.main:app --host 0.0.0.0 --port 8001 --reload
+
+ In Order to Run Compiler
+ -> cd compiler
+ -> cd app
+ -> cd uvicorn main:app --reload
+
+ In Order to Run Avatar_Interview
+ -> cd avatar_interview
+ ->  uvicorn backend.main:app --host 0.0.0.0 --port 8002 --reload
