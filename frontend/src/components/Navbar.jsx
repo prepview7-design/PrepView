@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/PrepViewLogoNavbarCropped.jpeg';
-import { FlaskConical } from 'lucide-react';
+import { FlaskConical, Layers } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -33,6 +33,10 @@ const Navbar = () => {
           <Link to="/test" style={{ ...styles.link, ...styles.testLink, ...(isActive('/test') ? styles.testLinkActive : {}) }}>
             <FlaskConical size={14} style={{ flexShrink: 0 }} />
             Take a Test
+          </Link>
+          <Link to="/mock-test" style={{ ...styles.link, ...styles.mockLink, ...(isActive('/mock-test') ? styles.mockLinkActive : {}) }}>
+            <Layers size={14} style={{ flexShrink: 0 }} />
+            Mock Test
           </Link>
         </div>
 
@@ -127,6 +131,24 @@ const styles = {
     justifyContent: 'center',
     fontSize: 14,
     fontWeight: 600,
+  },
+  mockLink: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    background: 'rgba(99,102,241,0.2)',
+    border: '1px solid rgba(99,102,241,0.4)',
+    borderRadius: '8px',
+    padding: '5px 12px',
+    fontWeight: 700,
+    opacity: 1,
+    color: '#A5B4FC',
+  },
+  mockLinkActive: {
+    background: 'rgba(99,102,241,0.45)',
+    borderColor: '#A5B4FC',
+    borderBottom: 'none',
+    paddingBottom: '5px',
   },
   logoutBtn: {
     padding: '6px 14px',

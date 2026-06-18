@@ -10,6 +10,7 @@ import ApptiRound     from '../pages/ApptiRound';
 import AvatarInterview from '../pages/AvatarInterview';
 import Compiler       from '../pages/Compiler';
 import Test           from '../pages/Test';
+import MockTest       from '../pages/MockTest';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -37,6 +38,7 @@ const AppRoutes = () => (
       <Route path="/avatar-interview" element={<PrivateRoute><AvatarInterview /></PrivateRoute>} />
       <Route path="/compiler"         element={<PrivateRoute><Compiler /></PrivateRoute>} />
       <Route path="/test"             element={<PrivateRoute><Test /></PrivateRoute>} />
+      <Route path="/mock-test"        element={<PrivateRoute><MockTest /></PrivateRoute>} />
 
       <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>

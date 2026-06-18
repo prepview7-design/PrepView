@@ -288,6 +288,88 @@ const Home = () => {
         </section>
 
 
+
+        {/* MOCK TEST SECTION */}
+        <section style={styles.sectionSpacing}>
+          <div style={styles.sectionHeader}>
+            <div>
+              <h2 style={styles.sectionTitle}>🎯 Full Mock Tests</h2>
+              <p style={styles.sectionSubtitle}>
+                Company-wise mock tests with Aptitude, Coding & Interview rounds.
+              </p>
+            </div>
+          </div>
+
+          <div style={styles.mockTestBanner}>
+            {/* Left: Slider of companies */}
+            <div style={styles.mockLeft}>
+              <div style={styles.mockBadge}>🚀 NEW FEATURE</div>
+              <h3 style={styles.mockTitle}>Take a Company-Specific Mock Test</h3>
+              <p style={styles.mockDesc}>
+                Simulate a complete hiring process — Aptitude MCQs, a coding problem on our compiler, 
+                and an AI-scored interview. Choose from TCS, Infosys, Wipro, Amazon, or Generic.
+              </p>
+              <div style={styles.mockCompanies}>
+                {['TCS', 'Infosys', 'Wipro', 'Amazon', 'Generic'].map((c, i) => (
+                  <span key={c} style={{ ...styles.mockCompanyTag, animationDelay: `${i * 0.1}s` }}>{c}</span>
+                ))}
+              </div>
+              <div style={styles.mockRounds}>
+                <div style={styles.mockRoundItem}>
+                  <div style={{ ...styles.mockRoundIcon, background: '#EEF2FF', color: '#6366F1' }}>📐</div>
+                  <div>
+                    <div style={styles.mockRoundTitle}>Aptitude Round</div>
+                    <div style={styles.mockRoundDesc}>10 MCQs · 20 min</div>
+                  </div>
+                </div>
+                <div style={styles.mockRoundItem}>
+                  <div style={{ ...styles.mockRoundIcon, background: '#ECFDF3', color: '#10B981' }}>💻</div>
+                  <div>
+                    <div style={styles.mockRoundTitle}>Coding Round</div>
+                    <div style={styles.mockRoundDesc}>1 problem · 30 min</div>
+                  </div>
+                </div>
+                <div style={styles.mockRoundItem}>
+                  <div style={{ ...styles.mockRoundIcon, background: '#FFFBEB', color: '#F59E0B' }}>🎤</div>
+                  <div>
+                    <div style={styles.mockRoundTitle}>Interview Round</div>
+                    <div style={styles.mockRoundDesc}>5 questions · 15 min</div>
+                  </div>
+                </div>
+              </div>
+              <Link to="/mock-test" style={styles.mockCTA}>
+                🎯 Start Mock Test →
+              </Link>
+            </div>
+
+            {/* Right: Visual */}
+            <div style={styles.mockRight}>
+              <div style={styles.mockRightCard}>
+                <div style={styles.mockProgressLabel}>Overall Readiness</div>
+                {[
+                  { label: 'Aptitude', color: '#6366F1', pct: 75 },
+                  { label: 'Coding', color: '#10B981', pct: 60 },
+                  { label: 'Interview', color: '#F59E0B', pct: 82 },
+                ].map(bar => (
+                  <div key={bar.label} style={{ marginBottom: 14 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#6B7280', marginBottom: 6 }}>
+                      <span>{bar.label}</span><span>{bar.pct}%</span>
+                    </div>
+                    <div style={{ height: 8, background: '#F3F4F6', borderRadius: 999, overflow: 'hidden' }}>
+                      <div style={{ width: `${bar.pct}%`, height: '100%', background: bar.color, borderRadius: 999 }} />
+                    </div>
+                  </div>
+                ))}
+                <div style={styles.mockScore}>
+                  <span style={{ fontSize: 28, fontWeight: 800, color: '#2D336B' }}>72%</span>
+                  <span style={{ fontSize: 13, color: '#6B7280' }}>Mock Score</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
         {/* QUICK ACTIONS */}
         <section style={styles.sectionSpacing}>
           <div style={styles.sectionHeader}>
@@ -668,6 +750,129 @@ const styles = {
     fontWeight: 700,
     color: '#111827',
     marginBottom: '6px',
+  },
+
+
+  mockTestBanner: {
+    display: 'grid',
+    gridTemplateColumns: '1.6fr 1fr',
+    gap: '28px',
+    background: 'linear-gradient(135deg, #1a1a3e 0%, #2D336B 100%)',
+    borderRadius: '28px',
+    padding: '40px',
+    color: '#fff',
+    overflow: 'hidden',
+    position: 'relative',
+  },
+
+  mockLeft: { display: 'flex', flexDirection: 'column', gap: '16px' },
+
+  mockBadge: {
+    display: 'inline-block',
+    padding: '5px 12px',
+    borderRadius: '999px',
+    background: 'rgba(245,158,11,0.2)',
+    border: '1px solid rgba(245,158,11,0.4)',
+    fontSize: '11px',
+    fontWeight: 700,
+    color: '#F59E0B',
+    letterSpacing: '0.06em',
+    width: 'fit-content',
+  },
+
+  mockTitle: {
+    fontSize: '26px',
+    fontWeight: 800,
+    margin: 0,
+    lineHeight: 1.2,
+    color: '#fff',
+  },
+
+  mockDesc: {
+    fontSize: '14px',
+    color: 'rgba(255,255,255,0.7)',
+    lineHeight: 1.8,
+    margin: 0,
+  },
+
+  mockCompanies: { display: 'flex', gap: '8px', flexWrap: 'wrap' },
+
+  mockCompanyTag: {
+    padding: '5px 12px',
+    borderRadius: '999px',
+    background: 'rgba(255,255,255,0.12)',
+    border: '1px solid rgba(255,255,255,0.2)',
+    fontSize: '12px',
+    fontWeight: 600,
+    color: '#fff',
+  },
+
+  mockRounds: { display: 'flex', flexDirection: 'column', gap: '10px' },
+
+  mockRoundItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '14px',
+    background: 'rgba(255,255,255,0.07)',
+    borderRadius: '12px',
+    padding: '12px 16px',
+    border: '1px solid rgba(255,255,255,0.1)',
+  },
+
+  mockRoundIcon: {
+    width: '40px',
+    height: '40px',
+    borderRadius: '10px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '18px',
+    flexShrink: 0,
+  },
+
+  mockRoundTitle: { fontSize: '14px', fontWeight: 700, color: '#fff' },
+
+  mockRoundDesc: { fontSize: '12px', color: 'rgba(255,255,255,0.5)', marginTop: '2px' },
+
+  mockCTA: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: '14px 24px',
+    borderRadius: '14px',
+    background: '#F59E0B',
+    color: '#000',
+    textDecoration: 'none',
+    fontWeight: 800,
+    fontSize: '15px',
+    width: 'fit-content',
+    boxShadow: '0 8px 24px rgba(245,158,11,0.3)',
+  },
+
+  mockRight: { display: 'flex', alignItems: 'center', justifyContent: 'center' },
+
+  mockRightCard: {
+    background: '#fff',
+    borderRadius: '20px',
+    padding: '24px',
+    width: '100%',
+    maxWidth: '280px',
+    boxShadow: '0 20px 50px rgba(0,0,0,0.2)',
+  },
+
+  mockProgressLabel: {
+    fontSize: '14px',
+    fontWeight: 700,
+    color: '#111827',
+    marginBottom: '18px',
+  },
+
+  mockScore: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: '16px',
+    borderTop: '1px solid #F3F4F6',
+    marginTop: '8px',
   },
 
   actionDesc: {
