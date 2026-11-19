@@ -1,6 +1,15 @@
 const User = require('../models/User');
 const jwt  = require('jsonwebtoken');
 
+const isProd = process.env.NODE_ENV === 'production';
+
+const cookieOptions = {
+  httpOnly: true,
+  secure:   isProd,                    // required when sameSite is 'none'
+  sameSite: isProd ? 'none' : 'lax',   // 'none' allows cross-site (Vercel -> Render)
+  maxAge:   7 * 24 * 60 * 60 * 1000,
+};
+
 // ── Helper: sign JWT and set HttpOnly cookie ───────────────
 const sendToken = (res, user, statusCode = 200) => {
   const token = jwt.sign(
@@ -10,12 +19,7 @@ const sendToken = (res, user, statusCode = 200) => {
   )
 
   // Set HttpOnly cookie — JS cannot read this, protects against XSS
-  res.cookie('token', token, {
-    httpOnly: true,
-    secure:   process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge:   7 * 24 * 60 * 60 * 1000, // 7 days in ms
-  });
+  res.cookie('token', token, cookieOptions);
 
   res.status(statusCode).json({
     _id:            user._id,
@@ -116,13 +120,9 @@ exports.phoneLogin = async (req, res) => {
 
 // ── LOGOUT ─────────────────────────────────────────────────
 exports.logout = (req, res) => {
-  res.cookie('token', '', {
-    httpOnly: true,
-    expires: new Date(0),
-  });
+  res.clearCookie('token', { ...cookieOptions, maxAge: undefined });
   res.json({ message: 'Logged out successfully' });
 };
-
 // ── GET CURRENT USER ───────────────────────────────────────
 exports.getMe = (req, res) => {
   res.json(req.user);
@@ -159,12 +159,7 @@ exports.oauthCallback = (req, res) => {
     { expiresIn: '7d' }
   );
 
-  res.cookie('token', token, {
-    httpOnly: true,
-    secure:   process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge:   7 * 24 * 60 * 60 * 1000,
-  });
+  res.cookie('token', token, cookieOptions);
 
   // Redirect to frontend home after OAuth
   res.redirect(`${process.env.CLIENT_URL}/home`);
