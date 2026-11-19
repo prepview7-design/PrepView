@@ -2,6 +2,9 @@ const passport = require('passport');
 const GoogleStrategy  = require('passport-google-oauth20').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
 const User = require('../models/User');
+const BACKEND_URL = (
+  process.env.BACKEND_URL || 'http://localhost:5000'
+).replace(/\/+$/, '');
 
 // ── Serialize / Deserialize (for session) ─────────────────
 passport.serializeUser((user, done) => done(null, user.id));
@@ -21,7 +24,7 @@ passport.use(
     {
       clientID:     process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL:  '/api/auth/google/callback',
+      callbackURL: `${BACKEND_URL}/api/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -29,11 +32,11 @@ passport.use(
         let user = await User.findOne({ googleId: profile.id });
 
         if (!user) {
-          // Check if email already registered (link accounts)
+          // Check if email already registe,red (link accounts)
           const emailUser = await User.findOne({
-            email: profile.emails[0].value,
+            email: profile.emails[0].value
           });
-
+    
           if (emailUser) {
             // Link Google to existing account
             emailUser.googleId = profile.id;
@@ -66,7 +69,7 @@ passport.use(
     {
       consumerKey:    process.env.TWITTER_CONSUMER_KEY,
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-      callbackURL:    '/api/auth/twitter/callback',
+      callbackURL: `${BACKEND_URL}/api/auth/twitter/callback`, 
       includeEmail:   true,
     },
     async (token, tokenSecret, profile, done) => {
@@ -78,7 +81,7 @@ passport.use(
             name:      profile.displayName,
             email:     profile.emails?.[0]?.value || null,
             twitterId: profile.id,
-            avatar:    profile.photos[0].value.replace('_normal', '_400x400'),
+            avatar: profile.photos?.[0]?.value?.replace('_normal', '_400x400') || '',
             provider:  'twitter',
           });
         }
