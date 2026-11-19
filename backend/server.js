@@ -14,10 +14,9 @@ require('./config/passport');
 const authRoutes = require('./routes/authRoutes');
 const cvRoutes   = require('./routes/cvRoutes');
 
-connectDB();
 
 const app = express();
-
+app.set('trust proxy', 1);
 // ── Security ───────────────────────────────────────────────
 app.use(helmet());
 
@@ -84,15 +83,15 @@ app.use(cookieParser());
 
 // ── Session (required for Passport OAuth) ─────────────────
 app.use(session({
-  secret: process.env.JWT_SECRET,
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  },
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+},
 }));
 
 // ── Passport ───────────────────────────────────────────────
@@ -115,5 +114,20 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message || 'Internal Server Error' });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  } catch (error) {
+    console.error('Server startup failed:', error);
+    process.exit(1);
+  }
+};
+
+startServer();
