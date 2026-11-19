@@ -13,3 +13,4 @@ beautifulsoup4==4.12.3
 sentence-transformers==2.7.0
 sqlalchemy==2.0.30
 scikit-learn==1.4.2
+cachetools
