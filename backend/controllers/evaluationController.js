@@ -1,6 +1,12 @@
 const TestResult = require('../models/TestResult');
 const InterviewResult = require('../models/InterviewResult');
 const User = require('../models/User');
+// Python Microservice URLs
+const APPTI_SERVICE_URL =
+  (process.env.APPTI_SERVICE_URL || 'http://localhost:8001').replace(/\/+$/, '');
+
+const AVATAR_SERVICE_URL =
+  (process.env.AVATAR_SERVICE_URL || 'http://localhost:8002').replace(/\/+$/, '');
 
 // @desc    Evaluate Aptitude Test & Save
 // @route   POST /api/evaluations/aptitude
@@ -71,7 +77,7 @@ exports.evaluateAptitude = async (req, res) => {
     const { difficulty, questions, answers, company } = req.body;
 
     // 1. Call Python Microservice
-    const response = await fetch('http://localhost:8001/api/evaluate-test', {
+    const response = await fetch(`${APPTI_SERVICE_URL}/api/evaluate-test`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ difficulty, questions, answers }),
@@ -137,7 +143,7 @@ exports.evaluateInterview = async (req, res) => {
     const formData = new URLSearchParams();
     formData.append('session_id', session_id);
 
-    const response = await fetch('http://localhost:8002/evaluate', {
+    const response = await fetch(`${AVATAR_SERVICE_URL}/evaluate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

@@ -50,13 +50,13 @@ app.use(cors({
 // ── Microservices Proxy Routes ─────────────────────────────
 // Setup proxies BEFORE body parsers so the streams remain intact (crucial for file uploads in avatar_interview)
 app.use('/api/appti_round', createProxyMiddleware({
-  target: 'http://localhost:8001',
+  target: process.env.APPTI_SERVICE_URL || 'http://localhost:8001',
   changeOrigin: true,
   pathRewrite: { '^/api/appti_round': '' }, // Removes /api/appti_round prefix
 }));
 
 app.use('/api/avatar_interview', createProxyMiddleware({
-  target: 'http://localhost:8002',
+  target: process.env.AVATAR_SERVICE_URL || 'http://localhost:8002',
   changeOrigin: true,
   pathRewrite: { '^/api/avatar_interview': '' }, // Removes /api/avatar_interview prefix
 }));
@@ -64,7 +64,7 @@ app.use('/api/avatar_interview', createProxyMiddleware({
 app.use(
   '/api/compiler',
   createProxyMiddleware({
-    target: 'http://localhost:8000',
+    target: process.env.COMPILER_SERVICE_URL || 'http://localhost:8000',
     changeOrigin: true,
 
     pathRewrite: {
