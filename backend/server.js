@@ -61,23 +61,21 @@ app.use('/api/avatar_interview', createProxyMiddleware({
   pathRewrite: { '^/api/avatar_interview': '' }, // Removes /api/avatar_interview prefix
 }));
 
-app.use(
-  '/api/compiler',
-  createProxyMiddleware({
-    target: process.env.COMPILER_SERVICE_URL || 'http://localhost:8000',
-    changeOrigin: true,
+const compilerProxy = createProxyMiddleware({
+  target: process.env.COMPILER_SERVICE_URL || 'http://localhost:8000',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/api/compiler': '',
+    '^/compiler': '',
+  },
+  logLevel: 'debug',
+  onProxyReq: (proxyReq, req, res) => {
+    console.log('Proxying:', req.method, req.url);
+  },
+});
 
-    pathRewrite: {
-      '^/api/compiler': '',
-    },
-
-    logLevel: 'debug',
-
-    onProxyReq: (proxyReq, req, res) => {
-      console.log('Proxying:', req.method, req.url);
-    },
-  }) 
-);
+app.use('/api/compiler', compilerProxy);
+app.use('/compiler', compilerProxy);
 
 // ── Body & Cookie Parsers ──────────────────────────────────
 app.use(express.json());

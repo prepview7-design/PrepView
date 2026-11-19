@@ -12,7 +12,7 @@ import {
   Clock,
 } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const STARTER_TEMPLATES = {
   python: (fnName) => `# Write your solution here\ndef ${fnName || 'solution'}():\n    pass\n`,
@@ -49,19 +49,17 @@ export default function Compiler({ question, testCases, onTestResults }) {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.detail || 'Failed to run code');
-      setOutput(
-        [
-          `status: ${data.status}`,
-          `exit_code: ${data.exit_code}`,
-          `duration_ms: ${data.duration_ms}`,
-          '',
-          'stdout:',
-          data.stdout || '(empty)',
-          '',
-          'stderr:',
-          data.stderr || '(empty)',
-        ].join('\n')
-      );
+      const lines = [
+        `status: ${data.status}`,
+        `exit_code: ${data.exit_code}`,
+        `duration_ms: ${data.duration_ms}`,
+      ];
+      if (data.compile_stderr) {
+        lines.push('', 'compile stderr:', data.compile_stderr);
+      }
+      lines.push('', 'stdout:', data.stdout || '(empty)');
+      lines.push('', 'stderr:', data.stderr || '(empty)');
+      setOutput(lines.join('\n'));
     } catch (error) {
       setOutput(`Error: ${error.message}`);
     } finally {
@@ -91,10 +89,15 @@ export default function Compiler({ question, testCases, onTestResults }) {
         const data = await response.json();
         const actualOut = (data.stdout || '').trim();
         const expectedOut = JSON.stringify(tc.output).trim();
-        const passed = actualOut === expectedOut ||
+        const passed = data.status === 'success' && (
+          actualOut === expectedOut ||
           actualOut === String(tc.output) ||
-          actualOut.replace(/\s/g, '') === expectedOut.replace(/\s/g, '');
-        results.push({ input: tc.input, expected: tc.output, actual: actualOut, passed, status: data.status });
+          actualOut.replace(/\s/g, '') === expectedOut.replace(/\s/g, '')
+        );
+        const actualDisplay = data.status === 'success'
+          ? actualOut
+          : `[${data.status}] ${data.compile_stderr || data.stderr || 'Runtime error'}`;
+        results.push({ input: tc.input, expected: tc.output, actual: actualDisplay, passed, status: data.status });
       } catch {
         results.push({ input: tc.input, expected: tc.output, actual: 'Error', passed: false, status: 'error' });
       }

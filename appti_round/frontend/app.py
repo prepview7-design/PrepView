@@ -6,7 +6,7 @@ import time
 import streamlit.components.v1 as components
 
 # Configuration
-API_BASE_URL = "http://localhost:8000/api"
+API_BASE_URL = "http://localhost:8001/api"
 TEST_DURATION_MINUTES = 20
 
 st.set_page_config(page_title="Aptitude Test", page_icon="⏱️", layout="wide")

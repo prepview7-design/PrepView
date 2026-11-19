@@ -1,6 +1,6 @@
 # Online Compiler and Interpreter Backend
 
-FastAPI backend for running Python, C, C++, and Java code from a web client.
+FastAPI backend for running Python, JavaScript, C, C++, and Java code from a web client.
 
 ## Features
 
@@ -8,7 +8,8 @@ FastAPI backend for running Python, C, C++, and Java code from a web client.
 - `GET /health` reports available local toolchains.
 - Built-in browser playground at `GET /`.
 - Per-run temporary directories.
-- Compile support for C, C++, and Java.
+- Support for Python, JavaScript (Node.js), C, C++, and Java.
+- Robust Java class name resolution (supports both `public class Main` and LeetCode-style `class Solution`).
 - Timeout, request-size, and output-size limits.
 
 ## Requirements
@@ -22,9 +23,10 @@ pip install -r requirements.txt
 Install language toolchains and make sure they are on `PATH`:
 
 - Python: `python`
+- JavaScript: `node`
 - C: `gcc`
 - C++: `g++`
-- Java: `javac` and `java`
+- Java: `javac` and `java` (JDK 8+)
 
 ## Run
 
@@ -71,15 +73,6 @@ Response shape:
 ## Security Note
 
 This service executes untrusted code. Timeouts and temporary folders are useful operational controls, but they are not a security boundary. Before exposing it to real public users, run executions inside isolated containers or virtual machines, with strict CPU, memory, network, filesystem, and process limits.
-
-Good production architecture:
-
-- FastAPI API server receives requests.
-- A job queue dispatches code execution.
-- Worker containers run one submission each.
-- Containers have no host mounts except a disposable workspace.
-- Network is disabled unless explicitly needed.
-- CPU, memory, process count, and wall-time limits are enforced by the container runtime.
 
 ## Test
 

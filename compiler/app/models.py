@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 
 class Language(str, Enum):
     python = "python"
+    javascript = "javascript"
     c = "c"
     cpp = "cpp"
     java = "java"

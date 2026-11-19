@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import requests
 
@@ -7,17 +8,18 @@ st.set_page_config(page_title="Online Compiler", layout="wide")
 st.title("Online Code Compiler")
 
 # API Endpoint
-BACKEND_URL = "http://127.0.0.1:8000/run"
+BACKEND_URL = os.environ.get("COMPILER_BACKEND_URL", "http://127.0.0.1:8000/run")
 
 EXAMPLES = {
     "python": 'name = input() or "Python"\nprint(f"Hello, {name}!")',
+    "javascript": 'const fs = require("fs");\nconst name = fs.readFileSync(0, "utf-8").trim() || "JavaScript";\nconsole.log(`Hello, ${name}!`);',
     "c": '#include <stdio.h>\nint main() {\n  char name[80];\n  if (scanf("%79s", name) != 1) return 0;\n  printf("Hello, %s!\\n", name);\n  return 0;\n}',
     "cpp": '#include <iostream>\n#include <string>\nint main() {\n  std::string name;\n  std::cin >> name;\n  std::cout << "Hello, " << name << "!\\n";\n}',
     "java": 'public class Main {\n  public static void main(String[] args) throws Exception {\n    java.util.Scanner sc = new java.util.Scanner(System.in);\n    String name = sc.hasNext() ? sc.next() : "Java";\n    System.out.println("Hello, " + name + "!");\n  }\n}'
 }
 
 # Language selection
-language = st.selectbox("Select Language", options=["python", "c", "cpp", "java"])
+language = st.selectbox("Select Language", options=["python", "javascript", "c", "cpp", "java"])
 
 # Default code based on selection
 if "current_language" not in st.session_state or st.session_state.current_language != language:

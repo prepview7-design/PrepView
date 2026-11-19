@@ -12,11 +12,14 @@ import toast from 'react-hot-toast';
 import { useAntiCheat } from '../hooks/useAntiCheat';
 
 const API_URL =
-  import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const examples = {
   python:
     'name = input() or "Python"\nprint(f"Hello, {name}!")',
+
+  javascript:
+    'const fs = require("fs");\nconst name = fs.readFileSync(0, "utf-8").trim() || "JavaScript";\nconsole.log(`Hello, ${name}!`);',
 
   c:
     '#include <stdio.h>\nint main() {\n  char name[80];\n  if (scanf("%79s", name) != 1) return 0;\n  printf("Hello, %s!\\n", name);\n  return 0;\n}',
@@ -119,7 +122,7 @@ export default function Compiler() {
                 </h1>
 
                 <p style={styles.subtitle}>
-                  Run Python, C, C++, and Java directly in
+                  Run Python, JavaScript, C, C++, and Java directly in
                   your browser.
                 </p>
               </div>
@@ -139,6 +142,7 @@ export default function Compiler() {
                 style={styles.select}
               >
                 <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
                 <option value="c">C</option>
                 <option value="cpp">C++</option>
                 <option value="java">Java</option>

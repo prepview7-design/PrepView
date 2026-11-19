@@ -18,7 +18,14 @@ from app.models import HealthResponse, LanguageStatus, RunRequest, RunResponse
 from app.runner import is_language_available, language_tools, run_code
 
 compiler_executor = ThreadPoolExecutor(max_workers=5)
-compiler_semaphore = asyncio.Semaphore(5)
+_compiler_semaphore: asyncio.Semaphore | None = None
+
+
+def get_compiler_semaphore() -> asyncio.Semaphore:
+    global _compiler_semaphore
+    if _compiler_semaphore is None:
+        _compiler_semaphore = asyncio.Semaphore(5)
+    return _compiler_semaphore
 
 app = FastAPI(
     title="Online Compiler and Interpreter API",
@@ -67,6 +74,7 @@ def playground() -> str:
       <label for="language">Language</label>
       <select id="language">
         <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
         <option value="c">C</option>
         <option value="cpp">C++</option>
         <option value="java">Java</option>
@@ -86,6 +94,7 @@ def playground() -> str:
 <script>
 const examples = {
   python: 'name = input() or "Python"\\nprint(f"Hello, {name}!")',
+  javascript: 'const fs = require("fs");\\nconst name = fs.readFileSync(0, "utf-8").trim() || "JavaScript";\\nconsole.log(`Hello, ${name}!`);',
   c: '#include <stdio.h>\\nint main() {\\n  char name[80];\\n  if (scanf("%79s", name) != 1) return 0;\\n  printf("Hello, %s!\\\\n", name);\\n  return 0;\\n}',
   cpp: '#include <iostream>\\n#include <string>\\nint main() {\\n  std::string name;\\n  std::cin >> name;\\n  std::cout << "Hello, " << name << "!\\\\n";\\n}',
   java: 'public class Main {\\n  public static void main(String[] args) throws Exception {\\n    java.util.Scanner sc = new java.util.Scanner(System.in);\\n    String name = sc.hasNext() ? sc.next() : "Java";\\n    System.out.println("Hello, " + name + "!");\\n  }\\n}'
@@ -158,7 +167,7 @@ async def run(request: RunRequest) -> RunResponse:
         stdin=request.stdin,
         timeout_seconds=request.timeout_seconds,
     )
-    async with compiler_semaphore:
+    async with get_compiler_semaphore():
         return await loop.run_in_executor(compiler_executor, func)
 
 if __name__ == "__main__":
